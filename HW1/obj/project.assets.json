@@ -1,0 +1,66 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0-windows7.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net7.0-windows7.0": []
+  },
+  "packageFolders": {
+    "C:\\Users\\dxhak\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj",
+      "projectName": "Lecture 1",
+      "projectPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj",
+      "packagesPath": "C:\\Users\\dxhak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\dxhak\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0-windows"
+      ],
+      "frameworks": {
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0-windows7.0": {
+        "targetAlias": "net7.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
