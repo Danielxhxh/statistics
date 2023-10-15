@@ -1,11 +1,25 @@
-var XLSX = require("xlsx");
+const fs = require("fs");
 
-const workbook = XLSX.readFile("Professional Life.xlsx");
-const sheetName = workbook.SheetNames[0];
-const worksheet = workbook.Sheets[sheetName];
+const tsvData = fs.readFileSync("Professional Life - Sheet1.tsv", "utf8");
 
-// Parse the worksheet into a JSON object
-const excelData = XLSX.utils.sheet_to_json(worksheet);
+const rows = tsvData.split("\n");
+
+const headers = rows[0].split("\t");
+
+const excelData = [];
+
+for (let i = 1; i < rows.length; i++) {
+  const row = rows[i].split("\t");
+  if (row.length === headers.length) {
+    const jsonRow = {};
+
+    for (let j = 0; j < headers.length; j++) {
+      jsonRow[headers[j]] = row[j];
+    }
+
+    excelData.push(jsonRow);
+  }
+}
 
 let Instruments = AbsoluteQualitative();
 let Ambitious = AbsoluteQuantitativeDiscrete();
