@@ -1,0 +1,14 @@
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.AssemblyInfoInputs.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.AssemblyInfo.cs
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.csproj.CoreCompileInputs.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\bin\Debug\net7.0\SeeSharp.exe
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\bin\Debug\net7.0\SeeSharp.deps.json
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\bin\Debug\net7.0\SeeSharp.runtimeconfig.json
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\bin\Debug\net7.0\SeeSharp.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\bin\Debug\net7.0\SeeSharp.pdb
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\refint\SeeSharp.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.pdb
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\SeeSharp.genruntimeconfig.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex1\SeeSharp\obj\Debug\net7.0\ref\SeeSharp.dll
