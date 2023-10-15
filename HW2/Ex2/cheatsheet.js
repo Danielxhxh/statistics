@@ -1,5 +1,5 @@
 /*
-ARRAY --------------------
+ARRAY --------------------------------------------------------------------------------------
 */
 let array = [0, 1, 2, 3, 4, 5];
 
@@ -27,7 +27,7 @@ array.includes("Ciao"); // Check existence (returns true/false)
 array.sort(); // Sort
 
 /*
-DICTIONARY -----------------
+DICTIONARY --------------------------------------------------------------------------------------
 */
 let dic = {
   key1: "val1",
@@ -67,7 +67,7 @@ if (values.includes("val2")) {
 }
 
 /*
-HASHSET -----------------
+HASHSET --------------------------------------------------------------------------------------
 It is like an array but contains unique values
 */
 
@@ -109,7 +109,7 @@ stack.push("Task 3"); // Add
 const taskStack = stack.pop(); // Remove
 
 /*
-LINKED LIST ---------------
+LINKED LIST --------------------------------------------------------------------------------------
 */
 
 class Node {
