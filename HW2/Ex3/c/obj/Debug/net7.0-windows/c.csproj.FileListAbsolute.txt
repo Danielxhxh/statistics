@@ -1,0 +1,14 @@
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\bin\Debug\net7.0-windows\c.exe
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\bin\Debug\net7.0-windows\c.deps.json
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\bin\Debug\net7.0-windows\c.runtimeconfig.json
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\bin\Debug\net7.0-windows\c.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\bin\Debug\net7.0-windows\c.pdb
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.AssemblyInfoInputs.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.AssemblyInfo.cs
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.csproj.CoreCompileInputs.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\refint\c.dll
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.pdb
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\c.genruntimeconfig.cache
+C:\Users\dxhak\OneDrive\Desktop\Magistrale\Statistics\HW2\Ex3\c\obj\Debug\net7.0-windows\ref\c.dll
