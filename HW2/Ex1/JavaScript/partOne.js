@@ -25,8 +25,8 @@ let Instruments = AbsoluteQualitative();
 let Ambitious = AbsoluteQuantitativeDiscrete();
 let Weight = AbsoluteQuantitativeContinuous();
 
-// console.log("Absolute frequency of Instruments: ", Instruments.data);
-// console.log("Absolute frequency of Ambituous: ", Ambitious.data);
+console.log("Absolute frequency of Instruments: ", Instruments.data);
+console.log("Absolute frequency of Ambituous: ", Ambitious.data);
 // console.log("Absolute frequency of Weight: ", Weight.data);
 
 function AbsoluteQualitative() {
