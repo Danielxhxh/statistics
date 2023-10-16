@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO; 
+using System.IO;
+using System.Threading.Tasks.Dataflow;
 
 class Program
 {
@@ -11,11 +12,24 @@ class Program
         int cols = matrix.GetLength(1);
 
 
-        string[] ambitiousArray = getColumn(matrix,"Ambitious (0-5)");
-        printColumn(ambitiousArray);
+        string[] instrumentsArray = getColumn(matrix,"Play some instruments? Which ones?");
 
-        Dictionary<string, int> ambitiousDictionary = new Dictionary<string, int>();
-        foreach (string item in ambitiousArray){
+        Dictionary<string, float> instrumentsDictionary = new Dictionary<string, float>();
+        foreach (string i in instrumentsArray){
+            string item = i.ToLower();
+            if (instrumentsDictionary.ContainsKey(item)){
+                instrumentsDictionary[item]++;
+            } else {
+                instrumentsDictionary[item] = 1;
+            }
+        }
+
+
+        string[] ambitiousArray = getColumn(matrix,"Ambitious (0-5)");
+
+        Dictionary<string, float> ambitiousDictionary = new Dictionary<string, float>();
+        foreach (string i in ambitiousArray){
+            string item = i.ToLower();
             if (ambitiousDictionary.ContainsKey(item)){
                 ambitiousDictionary[item]++;
             } else {
@@ -23,12 +37,35 @@ class Program
             }
         }
 
-        // Print the frequency of each string
-        foreach (var kvp in ambitiousDictionary)
-        {
-            Console.WriteLine($"String: {kvp.Key}, Frequency: {kvp.Value}");
+        string[] weightArray = getColumn(matrix,"weight");
+        
+        Dictionary<string, float> weightDictionary = new Dictionary<string, float>();
+        foreach (string i in weightArray){
+            string item = i.ToLower();
+            if(item.Length != 0){
+                
+    // WEIGHT = w
+    //   if (w < 50) {
+    //     data["50-"] += 1;
+    //   } else if (w >= 50 && w < 60) {
+    //     data["[50;60)"] += 1;
+    //   } else if (w >= 60 && w < 70) {
+    //     data["[60;70)"] += 1;
+    //   } else if (w >= 70 && w < 80) {
+    //     data["[70;80)"] += 1;
+    //   } else if (w >= 80) {
+    //     data["80+"] += 1;
+    //   }
+                if (weightDictionary.ContainsKey(item)){
+                    weightDictionary[item]++;
+                } else {
+                    weightDictionary[item] = 1;
+                }
+            }
         }
 
+        printPercentage(weightDictionary, weightArray.Length);
+        
     }
 
     
@@ -67,5 +104,26 @@ class Program
         foreach(var values in column){
             Console.WriteLine(values);
         }
+    }
+
+    public static void printAbsolute(Dictionary<string, float> dictionary){
+        foreach (var kvp in dictionary)
+        {
+            Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
+        }
+    }
+
+    public static void printRelative(Dictionary<string, float> dictionary, int len){
+        foreach (var kvp in dictionary){
+            // ambitiousDictionary[kvp.Key] = kvp.Value/len;
+             Console.WriteLine($"Key: {kvp.Key} ---> Relative frequency: {kvp.Value/len}");
+        }
+    }
+
+    public static void printPercentage(Dictionary<string, float> dictionary, int len){
+        foreach (var kvp in dictionary){
+            // ambitiousDictionary[kvp.Key] = kvp.Value/len;
+             Console.WriteLine($"Key: {kvp.Key} ---> Relative frequency: {(kvp.Value/len)*100}%");
+        } 
     }
 }
