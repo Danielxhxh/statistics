@@ -18,10 +18,31 @@ for (let i = 1; i < rows.length; i++) {
 
 let variableA = "Age";
 let variableB = "Ambitious (0-5)";
-let arrayA = getColumn(variableA);
-let arrayB = getColumn(variableB);
 
-jointDistribution(variableA, variableB, arrayA, arrayB);
+let matrix = jointDistribution(variableA, variableB);
+printMatrix(matrix);
+
+function jointDistribution(varA, varB) {
+  let arrayA = getColumn(variableA);
+  let arrayB = getColumn(variableB);
+
+  let matrix = [];
+  let header = ["-", ...arrayB];
+  matrix.push(header);
+
+  for (var i = 0; i < arrayA.length; i++) {
+    let arr = new Array(arrayB.length + 1).fill(0);
+    arr[0] = arrayA[i];
+
+    excelData.forEach((element) => {
+      if (element[varA] == arr[0]) {
+        arr[header.indexOf(element[varB])]++;
+      }
+    });
+    matrix.push(arr);
+  }
+  return matrix;
+}
 
 function getColumn(variable) {
   let arr = [];
@@ -33,19 +54,14 @@ function getColumn(variable) {
   return arr.sort();
 }
 
-function jointDistribution(varA, varB, arrayA, arrayB) {
-  let header = ["-", ...arrayB];
-  console.log(header);
+function printMatrix() {
+  for (let i = 0; i < matrix.length; i++) {
+    const row = matrix[i];
+    let rowString = "";
 
-  for (var i = 0; i < arrayA.length; i++) {
-    let arr = new Array(arrayB.length + 1).fill(0);
-    arr[0] = arrayA[i];
-
-    excelData.forEach((element) => {
-      if (element[varA] == arr[0]) {
-        arr[header.indexOf(element[varB])]++;
-      }
-    });
-    console.log(arr);
+    for (let j = 0; j < row.length; j++) {
+      rowString += row[j] + "\t"; // Use '\t' for tab spacing
+    }
+    console.log(rowString);
   }
 }

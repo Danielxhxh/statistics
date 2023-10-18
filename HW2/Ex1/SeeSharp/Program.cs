@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Dynamic;
 using System.IO;
 using System.Threading.Tasks.Dataflow;
 
@@ -70,11 +72,9 @@ class Program
             }
         }
 
-        // printPercentage(weightDictionary, weightUnits);
-        
+
     }
 
-    
     public static string[,] tsvToMatrix(string path){
         string[] lines = File.ReadAllLines(path);
 
@@ -106,12 +106,31 @@ class Program
         return column;
     }
 
+    public static int getIndex(string[,] matrix, string variable){
+        int index = 0;
+        for (int j = 0; j < matrix.GetLength(0); j++) {
+
+            if (matrix[0, j] == variable) {
+                index = j;
+                break;
+            }
+        }
+        return index;
+    }
     public static void printColumn(string[] column){
         foreach(var values in column){
             Console.WriteLine(values);
         }
     }
 
+    public static void printMatrix(string[,] matrix){
+        for (int row = 0; row < matrix.GetLength(0); row++){
+            for (int col = 0; col < matrix.GetLength(1); col++){
+                Console.Write(matrix[row, col] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
     public static void printAbsolute(Dictionary<string, float> dictionary){
         foreach (var kvp in dictionary){
             Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
