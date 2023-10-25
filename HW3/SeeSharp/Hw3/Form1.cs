@@ -14,6 +14,14 @@ namespace Hw3
 {
     public partial class Form1 : Form
     {
+        private Chart[] charts;
+        private Point[] chartLocations;
+        private Point[] mouseDownLocations;
+        private bool[] isDraggingList;
+        private bool[] isResizingList;
+        private Size[] resizeStartSize;
+
+        public static Random random = new Random();
 
         public Form1()
         {
@@ -25,9 +33,106 @@ namespace Hw3
             textBox3.Text = "0.5";
             textBox4.Text = "3";
 
+
+            int numberOfCharts = 5;
+            charts = new Chart[numberOfCharts];
+            chartLocations = new Point[numberOfCharts];
+            mouseDownLocations = new Point[numberOfCharts];
+            isDraggingList = new bool[numberOfCharts];
+            isResizingList = new bool[numberOfCharts];
+            resizeStartSize = new Size[numberOfCharts];
+
+            for (int i = 0; i < numberOfCharts; i++)
+            {
+                charts[i] = Controls.Find($"chart{i + 1}", true)[0] as Chart;
+                chartLocations[i] = new Point(0, 0);
+                mouseDownLocations[i] = Point.Empty;
+                isDraggingList[i] = false;
+
+                charts[i].MouseDown += Chart_MouseDown;
+                charts[i].MouseMove += Chart_MouseMove;
+                charts[i].MouseUp += Chart_MouseUp;
+            }
         }
 
-        public static Random random = new Random();
+        private void Chart_MouseDown(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            int chartIndex = Array.IndexOf(charts, chart);
+
+            if (e.Button == MouseButtons.Left)
+            {
+                if (e.X >= chart.Width - 10 && e.Y >= chart.Height - 10)
+                {
+                    isResizingList[chartIndex] = true;
+                    resizeStartSize[chartIndex] = chart.Size;
+                }
+                else
+                {
+                    isDraggingList[chartIndex] = true;
+                    mouseDownLocations[chartIndex] = e.Location;
+                }
+            }
+        }
+
+        private void Chart_MouseMove(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            int chartIndex = Array.IndexOf(charts, chart);
+
+            if (isDraggingList[chartIndex])
+            {
+                int deltaX = e.X - mouseDownLocations[chartIndex].X;
+                int deltaY = e.Y - mouseDownLocations[chartIndex].Y;
+
+                chartLocations[chartIndex].X += deltaX;
+                chartLocations[chartIndex].Y += deltaY;
+
+                if (chartLocations[chartIndex].X < 0) chartLocations[chartIndex].X = 0;
+                if (chartLocations[chartIndex].Y < 0) chartLocations[chartIndex].Y = 0;
+                if (chartLocations[chartIndex].X + chart.Width > pictureBox1.Width) chartLocations[chartIndex].X = pictureBox1.Width - chart.Width;
+                if (chartLocations[chartIndex].Y + chart.Height > pictureBox1.Height) chartLocations[chartIndex].Y = pictureBox1.Height - chart.Height;
+
+                chart.Location = chartLocations[chartIndex];
+            }
+            else if (isResizingList[chartIndex])
+            {
+                int deltaX = e.X - resizeStartSize[chartIndex].Width;
+                int deltaY = e.Y - resizeStartSize[chartIndex].Height;
+
+                int newWidth = resizeStartSize[chartIndex].Width + deltaX;
+                int newHeight = resizeStartSize[chartIndex].Height + deltaY;
+
+                if (newWidth < 100)
+                    newWidth = 100;
+                if (newHeight < 100)
+                    newHeight = 100;
+
+                chart.Size = new Size(newWidth, newHeight);
+            }
+            else if (e.X >= chart.Width - 10 && e.Y >= chart.Height - 10)
+            {
+                chart.BackColor = Color.LightGray;
+                chart.Cursor = Cursors.SizeNWSE;
+            }
+            else
+            {
+                chart.BackColor = Color.White;
+                chart.Cursor = Cursors.Default;
+            }
+        }
+
+        private void Chart_MouseUp(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            int chartIndex = Array.IndexOf(charts, chart);
+
+            if (e.Button == MouseButtons.Left)
+            {
+                isDraggingList[chartIndex] = false;
+                isResizingList[chartIndex] = false;
+            }
+        }
 
         private void fillChart()
         {
@@ -35,8 +140,6 @@ namespace Hw3
             int numberOfAttacks = int.Parse(textBox2.Text);
             int attackNumber = int.Parse(textBox4.Text);
             float probability;
-
-            //int indexNthAttack = 3;
 
             if (float.TryParse(textBox3.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out probability))
             {
