@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj": {}
+    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW1\\Lecture 1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj": {
+    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW1\\Lecture 1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj",
+        "projectUniqueName": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW1\\Lecture 1.csproj",
         "projectName": "Lecture 1",
-        "projectPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\Lecture 1.csproj",
+        "projectPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW1\\Lecture 1.csproj",
         "packagesPath": "C:\\Users\\dxhak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Università\\Magistrale\\Statistics\\Lecture 1\\obj\\",
+        "outputPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dxhak\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -53,7 +53,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

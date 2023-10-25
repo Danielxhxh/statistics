@@ -22,26 +22,21 @@ namespace Hw3
 
             textBox1.Text = "10";
             textBox2.Text = "10";
-            textBox3.Text = "0.3";
+            textBox3.Text = "0.5";
+            textBox4.Text = "3";
 
         }
 
         public static Random random = new Random();
 
-        /*
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            fillChart();
-        }
-        */
-
         private void fillChart()
         {
-            int numberOfAttacks = int.Parse(textBox2.Text);
             int numberOfSystems = int.Parse(textBox1.Text);
+            int numberOfAttacks = int.Parse(textBox2.Text);
+            int attackNumber = int.Parse(textBox4.Text);
             float probability;
 
-            int indexNthAttack = 3;
+            //int indexNthAttack = 3;
 
             if (float.TryParse(textBox3.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out probability))
             {
@@ -52,27 +47,29 @@ namespace Hw3
                 Console.WriteLine("Conversione non riuscita. L'input non è un valore float valido.");
             }
 
-            //min value of probability
-            float minValue = 0;
-            //max value of probability
-            float maxValue = 1;
+            float minProbability = 0;
+            float maxProbability = 1;
 
 
 
             int[] x = generateX(numberOfAttacks);
             int[] y;
-            //int[] yHistogram = new int[numberOfAttacks];
+
             double[] cumulatedFrequency;
             double[] relativeFrequency;
             double[] normalizedRatio;
 
-            //int[] lastValues = new int[numberOfSystems];
-            //int[] nthAttack = new int[numberOfSystems];
+            int[] lastValues = new int[numberOfSystems];
+            int[] nthAttacks = new int[numberOfSystems];
 
             chart1.Series.Clear();
             chart2.Series.Clear();
             chart3.Series.Clear();
             chart4.Series.Clear();
+            chart5.Series.Clear();
+
+
+            
 
             (int[], double[], double[], double[]) result;
 
@@ -81,7 +78,7 @@ namespace Hw3
             for (int i = 0; i < numberOfSystems; i++)
             {
 
-                result = generateCoordinateVector(numberOfAttacks, probability, minValue, maxValue);
+                result = generateCoordinateVector(numberOfAttacks, probability, minProbability, maxProbability);
 
                 y = result.Item1;
                 cumulatedFrequency = result.Item2;
@@ -89,8 +86,8 @@ namespace Hw3
                 normalizedRatio = result.Item4;
 
 
-                //lastValues.Append(y[y.Length - 1]);
-                //nthAttack.Append(y[indexNthAttack]);
+                lastValues[i] = y[numberOfAttacks - 1];
+                nthAttacks[i] = y[attackNumber];
 
                 var series = new Series($"Systems {i+1}");
                 series.ChartType = SeriesChartType.Line;
@@ -122,42 +119,66 @@ namespace Hw3
             }
 
 
-            /*ISTOGRAMMA
+            int maxLast = lastValues.Max();
+            int minLast = lastValues.Min();
+            int axesLastLength = maxLast - minLast + 1;
+            int[] yLast = new int[axesLastLength];
+            int[] xLast = new int[axesLastLength];
 
-            Series histogramSeries = new Series("Istogramma1");
-            histogramSeries.ChartType = SeriesChartType.Column;
-            histogramSeries.BorderWidth = 1;
-
-            chart1.Series.Add(histogramSeries);
-
-            int max = lastValues.Max();
-            int min = lastValues.Min();
-
-            for (int i = max; i >= min; i--)
+            for (int i = 0; i < axesLastLength; i++)
             {
-                yHistogram.Append(i);
+                yLast[i] = maxLast - i;
             }
 
-            int[] xAxesHistogram = new int[yHistogram.Length];
-            int[] xAxesHistogramAttackN = new int[yHistogram.Length];
-
-
-            for (int i = 0; i < yHistogram.Length; i++)
+            for (int i = 0; i < axesLastLength; i++)
             {
                 for (int j = 0; j < lastValues.Length; j++)
                 {
-                    if (yHistogram[i] == lastValues[j])
+                    if (yLast[i] == lastValues[j])
                     {
-                        xAxesHistogram[i]++;
-                    }
-                    if (yHistogram[i] == nthAttack[j])
-                    {
-                        xAxesHistogramAttackN[i]++;
+                        xLast[i]++;
                     }
                 }
-                histogramSeries.Points.AddXY(xAxesHistogram[i], yHistogram[i]);
             }
-            */
+
+            int maxNth = nthAttacks.Max();
+            int minNth = nthAttacks.Min();
+            int axesNthLength = maxNth - minNth + 1;
+            int[] yNth = new int[axesNthLength];
+            int[] xNth = new int[axesNthLength];
+
+            for (int i = 0; i < axesNthLength; i++)
+            {
+                yNth[i] = maxNth - i;
+            }
+
+            for (int i = 0; i < axesNthLength; i++)
+            {
+                for (int j = 0; j < nthAttacks.Length; j++)
+                {
+                    if (yNth[i] == nthAttacks[j])
+                    {
+                        xNth[i]++;
+                    }
+                }
+            }
+
+            chart5.Series.Clear();
+            chart5.Series.Add("Last Attack");
+            chart5.Series.Add("N-th Attack");
+            chart5.Series["Last Attack"].ChartType = SeriesChartType.Bar;
+            chart5.Series["N-th Attack"].ChartType = SeriesChartType.Bar;
+
+            // Bind data to the chart
+            for (int i = 0; i < yLast.Length; i++)
+            {
+                chart5.Series["Last Attack"].Points.AddXY(yLast[i], xLast[i]);
+            }
+            for (int i = 0; i < yNth.Length; i++)
+            {
+                chart5.Series["N-th Attack"].Points.AddXY(yNth[i], xNth[i]);
+            }
+
         }
 
         private void Form1_Load_1(object sender, EventArgs e)
@@ -165,7 +186,6 @@ namespace Hw3
             fillChart();
 
         }
-
 
         public static int[] generateX(int size)
         {
@@ -178,20 +198,20 @@ namespace Hw3
             return x;
         }
 
-        public static float GenerateRandomDouble(float minValue, float maxValue)
+        public static float GenerateRandomDouble(float minProbability, float maxProbability)
         {
-            if (minValue > maxValue)
-                throw new ArgumentException("minValue must be less than or equal to maxValue");
+            if (minProbability > maxProbability)
+                throw new ArgumentException("minProbability must be less than or equal to maxProbability");
 
             float randomValue = (float)random.NextDouble(); // Generates a random double between 0 and 1
-            float range = maxValue - minValue;
+            float range = maxProbability - minProbability;
             float scaledValue = randomValue * range;
-            float result = scaledValue + minValue;
+            float result = scaledValue + minProbability;
 
             return result;
         }
 
-        public static (int[], double[], double[], double[]) generateCoordinateVector(int size, float probability, float minValue, float maxValue)
+        public static (int[], double[], double[], double[]) generateCoordinateVector(int size, float probability, float minProbability, float maxProbability)
         {
             int[] y = new int[size];
             double[] cumulatedFrequency = new double[size];
@@ -205,7 +225,7 @@ namespace Hw3
 
             for (int i = 1; i < size; i++)
             {
-                value = GenerateRandomDouble(minValue, maxValue);
+                value = GenerateRandomDouble(minProbability, maxProbability);
 
                 sum += generateY(value, probability);
                 sumFrequency += generateFrequencyY(value, probability);
@@ -235,9 +255,6 @@ namespace Hw3
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            //timer1.Stop(); // Arresta il Timer se è in esecuzione
-            //timer1.Start(); // Riavvia il Timer
             fillChart();
 
         }

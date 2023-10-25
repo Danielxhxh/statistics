@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\c\\c.csproj": {}
+    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\SeeSharp\\c.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\c\\c.csproj": {
+    "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\SeeSharp\\c.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\c\\c.csproj",
+        "projectUniqueName": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\SeeSharp\\c.csproj",
         "projectName": "c",
-        "projectPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\c\\c.csproj",
+        "projectPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\SeeSharp\\c.csproj",
         "packagesPath": "C:\\Users\\dxhak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\c\\obj\\",
+        "outputPath": "C:\\Users\\dxhak\\OneDrive\\Desktop\\Magistrale\\Statistics\\HW2\\Ex3\\SeeSharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dxhak\\AppData\\Roaming\\NuGet\\NuGet.Config"
