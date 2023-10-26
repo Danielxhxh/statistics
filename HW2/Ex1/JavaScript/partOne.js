@@ -1,9 +1,6 @@
 const fs = require("fs");
-
 const tsvData = fs.readFileSync("Professional Life - Sheet1.tsv", "utf8");
-
 const rows = tsvData.split("\n");
-
 const headers = rows[0].split("\t");
 
 const excelData = [];
@@ -12,27 +9,23 @@ for (let i = 1; i < rows.length; i++) {
   const row = rows[i].split("\t");
   if (row.length === headers.length) {
     const jsonRow = {};
-
     for (let j = 0; j < headers.length; j++) {
       jsonRow[headers[j]] = row[j];
     }
-
     excelData.push(jsonRow);
   }
 }
 
-let Instruments = AbsoluteQualitative();
-let Ambitious = AbsoluteQuantitativeDiscrete();
-let Weight = AbsoluteQuantitativeContinuous();
+let Instruments = Absolute("Play some instruments? Which ones?");
+let Ambitious = Absolute("Ambitious (0-5)");
+let Weight = AbsoluteQuantitativeContinuous(5, "weight");
 
-console.log("Absolute frequency of Instruments: ", Instruments.data);
-console.log("Absolute frequency of Ambituous: ", Ambitious.data);
+// console.log("Absolute frequency of Instruments: ", Instruments.data);
+// console.log("Absolute frequency of Ambituous: ", Ambitious.data);
 // console.log("Absolute frequency of Weight: ", Weight.data);
 
-function AbsoluteQualitative() {
-  // Qualitative: Instruments
+function Absolute(question) {
   let data = {};
-  let question = "Play some instruments? Which ones?";
   let total = 0;
 
   // Save all the data in a JSON
@@ -47,59 +40,63 @@ function AbsoluteQualitative() {
       }
     }
   });
+  data = orderData(data);
   return { data, total };
 }
 
-function AbsoluteQuantitativeDiscrete() {
-  // Quantitative discrete: Ambitious (in a scale from 0 to 5)
-  let data = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-  let question = "Ambitious (0-5)";
+function orderData(inputObject) {
+  const sortedKeys = Object.keys(inputObject).sort(
+    (a, b) => a.localeCompare(b) || Number(a) - Number(b)
+  );
+
+  return sortedKeys.reduce(
+    (obj, key) => ({ ...obj, [key]: inputObject[key] }),
+    {}
+  );
+}
+
+function AbsoluteQuantitativeContinuous(numIntervals, question) {
+  let data = {};
   let total = 0;
 
-  // Save all the data in a JSON
+  let min = Number.POSITIVE_INFINITY;
+  let max = Number.NEGATIVE_INFINITY;
+
   excelData.forEach((element) => {
     if (element[question] !== undefined) {
-      let a = element[question];
-      if (a !== undefined && a > 0 && a < 6) {
-        data[a] += 1;
-        total++;
+      let w = parseFloat(element[question]);
+      if (w < min) {
+        min = w;
+      }
+      if (w > max) {
+        max = w;
       }
     }
   });
+  let intervalSize = (max - min) / numIntervals;
 
-  return { data, total };
-}
+  // Create the intervals and add in dictionary
+  for (let i = 0; i < numIntervals; i++) {
+    const start = min + i * intervalSize;
+    const end = min + (i + 1) * intervalSize;
+    data[`[${start};${end})`] = 0;
+  }
 
-function AbsoluteQuantitativeContinuous() {
-  // Quantitative continuous: Weight
-  let data = {
-    "50-": 0,
-    "[50;60)": 0,
-    "[60;70)": 0,
-    "[70;80)": 0,
-    "80+": 0,
-  };
-  let question = "weight";
-  let total = 0;
-
-  // Save all data in a JSON
   excelData.forEach((element) => {
-    if (element[question] !== undefined) {
-      let w = element[question];
+    let w = parseFloat(element[question]);
+    if (!isNaN(w)) {
       total++;
-      if (w < 50) {
-        data["50-"] += 1;
-      } else if (w >= 50 && w < 60) {
-        data["[50;60)"] += 1;
-      } else if (w >= 60 && w < 70) {
-        data["[60;70)"] += 1;
-      } else if (w >= 70 && w < 80) {
-        data["[70;80)"] += 1;
-      } else if (w >= 80) {
-        data["80+"] += 1;
+      for (let i = 0; i < numIntervals; i++) {
+        const start = min + i * intervalSize;
+        const end = min + (i + 1) * intervalSize;
+        if (w >= start && w < end) {
+          data[`[${start};${end})`] += 1;
+          break;
+        }
       }
     }
   });
+  console.log(data, total);
   return { data, total };
 }
 
@@ -121,17 +118,17 @@ function Relative(data, total) {
 }
 
 // -------------------------------------------------
-let PercentageInstruments = Percentage(Instruments.data, Instruments.total);
-let PercentageAmbitious = Percentage(Ambitious.data, Ambitious.total);
-let PercentageWeight = Percentage(Weight.data, Weight.total);
+let PercentageInstruments = Percentage(RelativeInstruments);
+let PercentageAmbitious = Percentage(RelativeAmbitious);
+let PercentageWeight = Percentage(RelativeWeight);
 
 // console.log("Percentage frequency of Instruments: ", PercentageInstruments);
 // console.log("Percentage frequency of Ambitious: ", PercentageAmbitious);
 // console.log("Percentage frequency of Weight: ", PercentageWeight);
 
-function Percentage(data, total) {
-  for (let key in data) {
-    data[key] = `${(data[key] * 100).toFixed(2)} %`;
+function Percentage(relativeData) {
+  for (let key in relativeData) {
+    relativeData[key] = `${(relativeData[key] * 100).toFixed(2)} %`;
   }
-  return data;
+  return relativeData;
 }
