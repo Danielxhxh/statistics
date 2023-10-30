@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Data;
 using System.Dynamic;
 using System.IO;
@@ -12,66 +13,20 @@ class Program
 
         // Qualitative
         string[] instrumentsArray = getColumn(matrix,"Play some instruments? Which ones?");
-
-        Dictionary<string, float> instrumentsDictionary = new Dictionary<string, float>();
-        foreach (string i in instrumentsArray){
-            string item = i.ToLower();
-            if (instrumentsDictionary.ContainsKey(item)){
-                instrumentsDictionary[item]++;
-            } else {
-                instrumentsDictionary[item] = 1;
-            }
-        }
-
-        // printPercentage(instrumentsDictionary, instrumentsArray.Length);
-
+        printAbsolute(instrumentsArray);
+        
 
         // Quantitative discrete
         string[] ambitiousArray = getColumn(matrix,"Ambitious (0-5)");
+        printPercentage(ambitiousArray);
 
-        Dictionary<string, float> ambitiousDictionary = new Dictionary<string, float>();
-        foreach (string i in ambitiousArray){
-            string item = i.ToLower();
-            if (ambitiousDictionary.ContainsKey(item)){
-                ambitiousDictionary[item]++;
-            } else {
-                ambitiousDictionary[item] = 1;
-            }
-        }
-        
-        // printPercentage(ambitiousDictionary, ambitiousArray.Length);
-        
         // Quantitative continuous
-        string[] weightArray = getColumn(matrix,"weight");
-        
-        Dictionary<string, float> weightDictionary = new Dictionary<string, float>();
-        weightDictionary.Add("50-", 0);
-        weightDictionary.Add("[50;60)", 0);
-        weightDictionary.Add("[60;70)", 0);
-        weightDictionary.Add("[70;80)", 0);
-        weightDictionary.Add("80+", 0);
+        string[] weightArray = getColumn(matrix, "weight");
+        printAbsoluteIntervals(weightArray, 4);
 
-        int weightUnits = 0;
 
-        foreach (string i in weightArray){
-            string item = i.ToLower();
-            if(item.Length != 0){
-                weightUnits++;
-                int w = int.Parse(item);
-                if (w < 50) {
-                    weightDictionary["50-"] += 1;
-                } else if (w >= 50 && w < 60) {
-                    weightDictionary["[50;60)"] += 1;
-                } else if (w >= 60 && w < 70) {
-                    weightDictionary["[60;70)"] += 1;
-                } else if (w >= 70 && w < 80) {
-                    weightDictionary["[70;80)"] += 1;
-                } else if (w >= 80) {
-                    weightDictionary["80+"] += 1;
-                }
-            }
-        }
-
+        Console.WriteLine("Press Enter to exit.");
+        Console.ReadLine();
 
     }
 
@@ -117,6 +72,26 @@ class Program
         }
         return index;
     }
+
+    public static Dictionary<string, float> toDictionary(string[] array)
+    {
+        Dictionary<string, float> dictionary = new Dictionary<string, float>();
+        foreach (string i in array)
+        {
+            string item = i.ToLower();
+            if (dictionary.ContainsKey(item))
+            {
+                dictionary[item]++;
+            }
+            else
+            {
+                dictionary[item] = 1;
+            }
+
+        }
+        return dictionary;
+    }
+
     public static void printColumn(string[] column){
         foreach(var values in column){
             Console.WriteLine(values);
@@ -131,21 +106,80 @@ class Program
             Console.WriteLine();
         }
     }
-    public static void printAbsolute(Dictionary<string, float> dictionary){
+
+    public static void printAbsolute(string[] array){
+        Dictionary<string, float> dictionary = toDictionary(array);
         foreach (var kvp in dictionary){
             Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
         }
     }
 
-    public static void printRelative(Dictionary<string, float> dictionary, int len){
-        foreach (var kvp in dictionary){
-             Console.WriteLine($"Key: {kvp.Key} ---> Relative frequency: {kvp.Value/len}");
+    public static void printAbsoluteIntervals(string[] array, int numIntervals)
+    {
+        var validNumbers = array.Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse);
+
+        double max;
+        double min;
+        if (validNumbers.Any())
+        {
+            max = validNumbers.Max()+1;
+            min = validNumbers.Min()-1;
+        }
+        else return;
+
+        double intervalSize = (max - min) / numIntervals;
+
+        Dictionary<string, float> dictionary = new Dictionary<string, float>();
+        
+        for (int i = 0; i < numIntervals; i++)
+        {
+            double start = min + i * intervalSize;
+            double end = min + (i + 1) * intervalSize;
+            string intervalKey = $"[{start};{end})";
+            dictionary[intervalKey] = 0;
+        }
+
+        foreach (double element in validNumbers)
+        {
+            for (int i = 0; i < numIntervals; i++)
+            {
+                double start = min + i * intervalSize;
+                double end = min + (i + 1) * intervalSize;
+
+                if (element >= start && element < end)
+                {
+                    string intervalKey = $"[{start};{end})";
+                    if (dictionary.ContainsKey(intervalKey))
+                        dictionary[intervalKey]++;
+                    else
+                        dictionary[intervalKey] = 1;
+                    break;
+                    }
+                }
+              
+            
+        }
+
+        foreach (var kvp in dictionary)
+        {
+            Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
         }
     }
 
-    public static void printPercentage(Dictionary<string, float> dictionary, int len){
+    public static void printRelative(string[] array){
+        Dictionary<string, float> dictionary = toDictionary(array);
         foreach (var kvp in dictionary){
-             Console.WriteLine($"Key: {kvp.Key} ---> Percentage frequency: {(kvp.Value/len)*100}%");
-        } 
+             Console.WriteLine($"Key: {kvp.Key} ---> Relative frequency: {kvp.Value/array.Length}");
+        }
     }
+
+    public static void printPercentage(string[] array)
+    {
+        Dictionary<string, float> dictionary = toDictionary(array);
+        foreach (var kvp in dictionary)
+        {
+            Console.WriteLine($"Key: {kvp.Key} ---> Percentage frequency: {(kvp.Value / array.Length) * 100}%");
+        }
+    }
+
 }

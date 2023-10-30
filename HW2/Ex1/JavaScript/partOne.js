@@ -18,9 +18,9 @@ for (let i = 1; i < rows.length; i++) {
 
 let Instruments = Absolute("Play some instruments? Which ones?");
 let Ambitious = Absolute("Ambitious (0-5)");
-let Weight = AbsoluteQuantitativeContinuous(5, "weight");
+let Weight = AbsoluteIntervals(5, "weight");
 
-// console.log("Absolute frequency of Instruments: ", Instruments.data);
+console.log("Absolute frequency of Instruments: ", Instruments.data);
 // console.log("Absolute frequency of Ambituous: ", Ambitious.data);
 // console.log("Absolute frequency of Weight: ", Weight.data);
 
@@ -55,7 +55,7 @@ function orderData(inputObject) {
   );
 }
 
-function AbsoluteQuantitativeContinuous(numIntervals, question) {
+function AbsoluteIntervals(numIntervals, question) {
   let data = {};
   let total = 0;
 
@@ -96,7 +96,6 @@ function AbsoluteQuantitativeContinuous(numIntervals, question) {
       }
     }
   });
-  console.log(data, total);
   return { data, total };
 }
 
@@ -106,7 +105,7 @@ let RelativeInstruments = Relative(Instruments.data, Instruments.total);
 let RelativeAmbitious = Relative(Ambitious.data, Ambitious.total);
 let RelativeWeight = Relative(Weight.data, Weight.total);
 
-// console.log("Relative frequency of Instruments: ", RelativeInstruments);
+console.log("Relative frequency of Instruments: ", RelativeInstruments);
 // console.log("Relative frequency of Ambitious: ", RelativeAmbitious);
 // console.log("Relative frequency of Weight: ", RelativeWeight);
 
@@ -122,7 +121,7 @@ let PercentageInstruments = Percentage(RelativeInstruments);
 let PercentageAmbitious = Percentage(RelativeAmbitious);
 let PercentageWeight = Percentage(RelativeWeight);
 
-// console.log("Percentage frequency of Instruments: ", PercentageInstruments);
+console.log("Percentage frequency of Instruments: ", PercentageInstruments);
 // console.log("Percentage frequency of Ambitious: ", PercentageAmbitious);
 // console.log("Percentage frequency of Weight: ", PercentageWeight);
 
