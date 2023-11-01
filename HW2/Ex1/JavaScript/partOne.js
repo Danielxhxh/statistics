@@ -18,11 +18,12 @@ for (let i = 1; i < rows.length; i++) {
 
 let Instruments = Absolute("Play some instruments? Which ones?");
 let Ambitious = Absolute("Ambitious (0-5)");
-let Weight = AbsoluteIntervals(5, "weight");
+// let Weight = AbsoluteIntervals(5, "weight");
+let Weight = AbsoluteSpecifyIntervals([45, 99, 101], "weight");
 
-console.log("Absolute frequency of Instruments: ", Instruments.data);
+// console.log("Absolute frequency of Instruments: ", Instruments.data);
 // console.log("Absolute frequency of Ambituous: ", Ambitious.data);
-// console.log("Absolute frequency of Weight: ", Weight.data);
+console.log("Absolute frequency of Weight: ", Weight.data);
 
 function Absolute(question) {
   let data = {};
@@ -99,13 +100,42 @@ function AbsoluteIntervals(numIntervals, question) {
   return { data, total };
 }
 
+function AbsoluteSpecifyIntervals(intervalsArray, question) {
+  let data = {};
+  let total = 0;
+
+  // Create the intervals and add in dictionary
+  for (let i = 0; i < intervalsArray.length - 1; i++) {
+    const start = intervalsArray[i];
+    const end = intervalsArray[i + 1];
+    data[`[${start};${end})`] = 0;
+  }
+
+  excelData.forEach((element) => {
+    let w = parseFloat(element[question]);
+    if (!isNaN(w)) {
+      total++;
+      for (let i = 0; i < intervalsArray.length - 1; i++) {
+        const start = intervalsArray[i];
+        const end = intervalsArray[i + 1];
+
+        if (w >= start && w < end) {
+          data[`[${start};${end})`] += 1;
+          break;
+        }
+      }
+    }
+  });
+  return { data, total };
+}
+
 // -------------------------------------------------
 
 let RelativeInstruments = Relative(Instruments.data, Instruments.total);
 let RelativeAmbitious = Relative(Ambitious.data, Ambitious.total);
 let RelativeWeight = Relative(Weight.data, Weight.total);
 
-console.log("Relative frequency of Instruments: ", RelativeInstruments);
+// console.log("Relative frequency of Instruments: ", RelativeInstruments);
 // console.log("Relative frequency of Ambitious: ", RelativeAmbitious);
 // console.log("Relative frequency of Weight: ", RelativeWeight);
 
@@ -121,7 +151,7 @@ let PercentageInstruments = Percentage(RelativeInstruments);
 let PercentageAmbitious = Percentage(RelativeAmbitious);
 let PercentageWeight = Percentage(RelativeWeight);
 
-console.log("Percentage frequency of Instruments: ", PercentageInstruments);
+// console.log("Percentage frequency of Instruments: ", PercentageInstruments);
 // console.log("Percentage frequency of Ambitious: ", PercentageAmbitious);
 // console.log("Percentage frequency of Weight: ", PercentageWeight);
 

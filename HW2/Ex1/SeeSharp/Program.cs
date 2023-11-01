@@ -13,16 +13,19 @@ class Program
 
         // Qualitative
         string[] instrumentsArray = getColumn(matrix,"Play some instruments? Which ones?");
-        printAbsolute(instrumentsArray);
+        // printAbsolute(instrumentsArray);
         
 
         // Quantitative discrete
         string[] ambitiousArray = getColumn(matrix,"Ambitious (0-5)");
-        printPercentage(ambitiousArray);
+        // printPercentage(ambitiousArray);
 
         // Quantitative continuous
         string[] weightArray = getColumn(matrix, "weight");
-        printAbsoluteIntervals(weightArray, 4);
+        // printAbsoluteIntervals(weightArray, 5);
+        int[] intervals = new int[] { 10, 20, 22, 100 };
+        printSpecifyIntervals(weightArray, intervals);
+
 
 
         Console.WriteLine("Press Enter to exit.");
@@ -117,37 +120,41 @@ class Program
     public static void printAbsoluteIntervals(string[] array, int numIntervals)
     {
         var validNumbers = array.Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse);
-
-        double max;
-        double min;
+       
+        int max;
+        int min;
         if (validNumbers.Any())
         {
-            max = validNumbers.Max()+1;
-            min = validNumbers.Min()-1;
+            max = validNumbers.Max();
+            min = validNumbers.Min();
         }
         else return;
 
-        double intervalSize = (max - min) / numIntervals;
+        int intervalSize = (max - min) / numIntervals;
 
         Dictionary<string, float> dictionary = new Dictionary<string, float>();
         
         for (int i = 0; i < numIntervals; i++)
         {
-            double start = min + i * intervalSize;
-            double end = min + (i + 1) * intervalSize;
+            int start = min + i * intervalSize;
+            int end = min + (i + 1) * intervalSize;
             string intervalKey = $"[{start};{end})";
             dictionary[intervalKey] = 0;
         }
 
-        foreach (double element in validNumbers)
+
+        int total = 0;
+        foreach (int element in validNumbers)
         {
+            total++;
             for (int i = 0; i < numIntervals; i++)
             {
-                double start = min + i * intervalSize;
-                double end = min + (i + 1) * intervalSize;
+                int start = min + i * intervalSize;
+                int end = min + (i + 1) * intervalSize;
 
                 if (element >= start && element < end)
                 {
+
                     string intervalKey = $"[{start};{end})";
                     if (dictionary.ContainsKey(intervalKey))
                         dictionary[intervalKey]++;
@@ -159,12 +166,56 @@ class Program
               
             
         }
-
         foreach (var kvp in dictionary)
         {
             Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
         }
     }
+
+    public static void printSpecifyIntervals(string[] array, int[] intervalsArray)
+    {
+        var validNumbers = array.Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse);
+
+        Dictionary<string, float> dictionary = new Dictionary<string, float>();
+
+        for (int i = 0; i < intervalsArray.Length-1; i++)
+        {
+            int start = intervalsArray[i];
+            int end = intervalsArray[i+1];
+            string intervalKey = $"[{start};{end})";
+            dictionary[intervalKey] = 0;
+        }
+
+
+        int total = 0;
+        foreach (int element in validNumbers)
+        {
+            total++;
+            for (int i = 0; i < intervalsArray.Length-1; i++)
+            {
+                int start = intervalsArray[i];
+                int end = intervalsArray[i + 1];
+
+                if (element >= start && element < end)
+                {
+
+                    string intervalKey = $"[{start};{end})";
+                    if (dictionary.ContainsKey(intervalKey))
+                        dictionary[intervalKey]++;
+                    else
+                        dictionary[intervalKey] = 1;
+                    break;
+                }
+            }
+
+
+        }
+        foreach (var kvp in dictionary)
+        {
+            Console.WriteLine($"Key: {kvp.Key} ---> Absolute frequency: {kvp.Value}");
+        }
+    }
+
 
     public static void printRelative(string[] array){
         Dictionary<string, float> dictionary = toDictionary(array);
