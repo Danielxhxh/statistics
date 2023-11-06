@@ -1,6 +1,7 @@
 body {
-  background-color: #ffeeee;
+  background-color: #ebf3e8;
   color: #3a3845;
+  position: relative;
 }
 h1 {
   width: 100%;
@@ -26,7 +27,6 @@ input {
   box-sizing: border-box;
 }
 
-/* Style the button */
 button {
   background-color: #0074d9;
   color: #fff;
@@ -47,22 +47,22 @@ button:hover {
   justify-content: space-around;
 }
 
-.canvas-wrapper {
-  width: 32%;
+.canvasWrapper {
+  width: 100%;
+  resize: both;
+  overflow: auto;
+  border: 1px solid lightgray;
 }
 
-#myCanvas {
-  background-color: #fff6ea;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 100%;
-  max-width: 700px;
-  margin: 5px;
+#canvas1 {
+  width: 50%;
+  height: auto;
+  position: absolute;
 }
-#myCanvas2,
-#myCanvas3,
-#myCanvas4 {
-  background-color: #fff6ea;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+#canvas2 {
+  width: 50%;
+  height: auto;
+  left: 50%;
+  position: absolute;
 }

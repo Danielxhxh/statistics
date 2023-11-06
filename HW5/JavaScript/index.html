@@ -9,7 +9,6 @@
   </head>
 
   <body>
-    <h1>System and Attack Generator</h1>
     <div class="container">
       <p>
         <label for="M">Number of Servers (M):</label>
@@ -39,30 +38,49 @@
         />
       </p>
     </div>
-
-    <div style="display: flex">
-      <div style="width: 50%">
-        <canvas id="myCanvas"></canvas>
+    <div class="resizable">
+      <div style="display: flex">
+        <div id="canvas1" class="canvasWrapper">
+          <canvas id="myCanvas"></canvas>
+        </div>
+        <div id="canvas2" class="canvasWrapper">
+          <canvas id="histogramChart"></canvas>
+        </div>
       </div>
-      <canvas
-        id="histogramChart"
-        style="width: 50%; max-width: 700px; margin: 5px"
-      ></canvas>
     </div>
-
     <script>
       "use strict";
+      const canvas1 = document.getElementById("canvas1");
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
-
+      const canvas2 = document.getElementById("canvas2");
       const myHistogram = document.getElementById("histogramChart");
 
-      myCanvas.addEventListener("mouseenter", function () {
-        myCanvas.style.pointerEvents = "none";
+      // Move canvas 1
+      myCanvas.addEventListener("mousedown", () => {
+        myCanvas.addEventListener("mousemove", update1);
+        window.addEventListener("mouseup", () => {
+          myCanvas.removeEventListener("mousemove", update1);
+        });
       });
-      myHistogram.addEventListener("mouseenter", function () {
-        myHistogram.style.pointerEvents = "none";
+
+      function update1(ev) {
+        canvas1.style.setProperty("left", `${ev.x - 200}px`);
+        canvas1.style.setProperty("top", `${ev.y - 25}px`);
+      }
+
+      // Move canvas 2
+      myHistogram.addEventListener("mousedown", () => {
+        myHistogram.addEventListener("mousemove", update2);
+        window.addEventListener("mouseup", () => {
+          myHistogram.removeEventListener("mousemove", update2);
+        });
       });
+
+      function update2(ev) {
+        canvas2.style.setProperty("left", `${ev.x - 200}px`);
+        canvas2.style.setProperty("top", `${ev.y - 25}px`);
+      }
 
       let yAxesHistogram = [];
       let xAxesHistogram = [];
@@ -132,7 +150,7 @@
           let sumAttacks = 0;
 
           for (let i = 0; i <= numberAttacks; i++) {
-            if (Math.random() >= probability) {
+            if (Math.random() <= probability) {
               sumAttacks += 1;
             }
             // else {
