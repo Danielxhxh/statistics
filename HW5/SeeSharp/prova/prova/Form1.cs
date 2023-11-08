@@ -308,7 +308,7 @@ namespace prova
 
         public static int generateY(float attack, float probability)
         {
-            if (attack <= probability) return +1;
+            if (attack > probability) return +1;
             else return 0;
         }
 

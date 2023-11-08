@@ -150,7 +150,7 @@
           let sumAttacks = 0;
 
           for (let i = 0; i <= numberAttacks; i++) {
-            if (Math.random() <= probability) {
+            if (Math.random() > probability) {
               sumAttacks += 1;
             }
             // else {
