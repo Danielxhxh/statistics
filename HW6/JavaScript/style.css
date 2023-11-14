@@ -1,0 +1,68 @@
+body {
+  background-color: #ecf2ff;
+  color: #190482;
+}
+h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.container p {
+  width: 30%;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input {
+  width: 80%;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Style the button */
+button {
+  background-color: #0074d9;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: #0056a7;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.canvasWrapper {
+  width: 100%;
+  resize: both;
+  overflow: auto;
+  border: 1px solid lightgray;
+}
+
+#canvas1 {
+  width: 50%;
+  height: auto;
+  position: absolute;
+}
+
+#canvas2 {
+  width: 50%;
+  height: auto;
+  left: 50%;
+  position: absolute;
+}
