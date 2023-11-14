@@ -52,6 +52,12 @@
       const canvas2 = document.getElementById("canvas2");
       const myHistogram = document.getElementById("histogramChart");
 
+      let canvasArr = [];
+
+      const destroyCanvas = function () {
+        for (let c of canvasArr) c.destroy();
+      };
+
       // Move canvas 1
       myCanvas.addEventListener("mousedown", () => {
         myCanvas.addEventListener("mousemove", update1);
@@ -114,6 +120,7 @@
       ReloadAttacksFrequency();
 
       function ReloadAttacks() {
+        destroyCanvas();
         let numberAttacks = N.value;
         let probability = p.value;
         let numberSystems = M.value;
@@ -254,6 +261,8 @@
             },
           },
         });
+
+        canvasArr.push(myChart);
       }
 
       function getRandomRGBAColor() {
@@ -283,7 +292,7 @@
         };
 
         // Create the histogram chart
-        let horizontalHistogram = new Chart(histogram, {
+        const horizontalHistogram = new Chart(histogram, {
           type: "horizontalBar",
           data: data,
           options: {
@@ -299,6 +308,8 @@
             },
           },
         });
+
+        canvasArr.push(horizontalHistogram);
       }
     </script>
   </body>
