@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div style="width: 100%">
+        <h1>
+          Choose the Stochastic Differential Equation (SDE):
+          <select id="SDE" name="SDE">
+            <option value="AB">Arithmetic Brownian</option>
+            <option value="GB">Geometric Brownian (BlackS-choles)</option>
+            <option value="OU">Ornstein-Uhlenbeck (mean-reverting)</option>
+            <option value="V">Vasicek</option>
+            <option value="HW">Hull-White</option>
+            <option value="CIR">Cox-Ingersoll-Ross</option>
+            <option value="BK">Black-Karasinski</option>
+            <option value="H">Heston</option>
+            <option value="CM">Chen model</option>
+          </select>
+        </h1>
+      </div>
+
+      <p>
+        <label for="M">Number of Systems (M):</label>
+        <input id="M" type="number" value="15" min="1" step="1" />
+      </p>
+      <p>
+        <label for="N">Number of Attacks (N):</label>
+        <input id="N" type="number" value="250" min="1" step="1" />
+      </p>
+      <p>
+        <label for="p">Probability of successfull attack (P): </label>
+        <input id="p" type="number" value="0.5" min="0" max="1" step="0.1" />
+      </p>
+      <p>
+        <label for="p">Security Score (S): </label>
+        <input id="S" type="number" value="20" min="20" max="100" step="10" />
+      </p>
+    </div>
+
+    <div class="resizable">
+      <div style="display: flex; justify-content: center">
+        <div id="canvas1" class="canvasWrapper">
+          <canvas id="myCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("SDE").addEventListener("change", function () {
+        var selectedAlg = this.value;
+        alert("You selected: " + selectedAlg);
+      });
+
+      const canvas1 = document.getElementById("canvas1");
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      let canvasArr = [];
+
+      const destroyCanvas = function () {
+        for (let c of canvasArr) c.destroy();
+      };
+
+      // Move canvas 1
+      myCanvas.addEventListener("mousedown", () => {
+        myCanvas.addEventListener("mousemove", update1);
+        window.addEventListener("mouseup", () => {
+          myCanvas.removeEventListener("mousemove", update1);
+        });
+      });
+
+      function update1(ev) {
+        canvas1.style.setProperty("left", `${ev.x - 200}px`);
+        canvas1.style.setProperty("top", `${ev.y - 25}px`);
+      }
+
+      //   let yAxesHistogram = [];
+      //   let xAxesHistogram = [];
+
+      //   const N = document.getElementById("N");
+      //   const p = document.getElementById("p");
+      //   const M = document.getElementById("M");
+      //   const colorSystems = [];
+      //   let listAttacks = 0;
+
+      //   // NEW
+      //   let S = document.getElementById("S");
+      //   let discarded = 0;
+
+      //   let xValues = Array.from({ length: N.value }, (_, i) => i);
+      //   let inputs = [N, p, M, S];
+
+      //   inputs.forEach((input) => {
+      //     input.addEventListener("input", () => {
+      //       ReloadAttacks();
+      //     });
+      //   });
+
+      //   ReloadAttacks();
+
+      //   function ReloadAttacks() {
+      //     destroyCanvas();
+      //     let numberAttacks = N.value;
+      //     let probability = p.value;
+      //     let numberSystems = M.value;
+
+      //     xValues = Array.from({ length: numberAttacks }, (_, i) => i);
+
+      //     listAttacks = GenerateAttacks(
+      //       numberAttacks,
+      //       probability,
+      //       numberSystems
+      //     );
+
+      //     DrawChart(listAttacks, numberSystems, "myCanvas");
+      //   }
+
+      //   function GenerateAttacks(numberAttacks, probability, numberSystems) {
+      //     const allAttacks = [];
+
+      //     discarded = 0;
+
+      //     for (let j = 0; j < numberSystems; j++) {
+      //       const yValues = [0];
+      //       let sumAttacks = 0;
+
+      //       for (let i = 1; i < numberAttacks; i++) {
+      //         if (Math.random() > probability) {
+      //           sumAttacks += 1;
+      //         } else {
+      //           sumAttacks -= 1;
+      //         }
+
+      //         yValues.push(sumAttacks);
+      //       }
+      //       allAttacks.push(yValues);
+      //     }
+
+      //     return allAttacks;
+      //   }
+
+      //   function AttacksCalculation(numberAttacks, probability, numberSystems) {
+      //     const cumulated = [];
+
+      //     for (let j = 0; j < numberSystems; j++) {
+      //       const yValuesCumulated = [0];
+      //       let sumAttacksCumulated = 0;
+
+      //       for (let i = 1; i < numberAttacks; i++) {
+      //         if (Math.random() >= probability) {
+      //           sumAttacksCumulated += 1;
+      //         }
+      //         yValuesCumulated.push(sumAttacksCumulated);
+      //       }
+
+      //       cumulated.push(yValuesCumulated);
+      //     }
+      //     return [cumulated];
+      //   }
+
+      //   function DrawChart(attacks, systems, chartID) {
+      //     ctx.clearRect(0, 0, chartID.width, chartID.height);
+
+      //     const datasets = [];
+
+      //     //Colors of Systems
+      //     for (let i = 0; i < M.value; i++) {
+      //       const randomColor = getRandomRGBAColor();
+      //       colorSystems.push(randomColor);
+      //       i++;
+      //     }
+
+      //     for (let i = 0; i < systems; i++) {
+      //       datasets.push({
+      //         label: `System ${i + 1}`,
+      //         fill: false,
+      //         backgroundColor: colorSystems[i],
+      //         borderColor: colorSystems[i],
+      //         data: attacks[i],
+      //       });
+      //     }
+
+      //     const myChart = new Chart(chartID, {
+      //       type: "line",
+      //       data: {
+      //         labels: xValues,
+      //         datasets: datasets,
+      //       },
+      //       options: {
+      //         responsive: true,
+      //         elements: {
+      //           line: {
+      //             tension: 0.1,
+      //           },
+      //         },
+      //         legend: {
+      //           display: false,
+      //         },
+      //         tooltips: {
+      //           enabled: false,
+      //         },
+      //       },
+      //     });
+
+      //     canvasArr.push(myChart);
+      //   }
+
+      function getRandomRGBAColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        const a = Math.random();
+        return `rgba(${r}, ${g}, ${b}, ${a})`;
+      }
+
+      //   --------------------
+      // Function to generate Arithmetic Brownian Motion data
+      function generateBrownianMotion(
+        numSteps,
+        initialValue,
+        volatility,
+        chartID
+      ) {
+        ctx.clearRect(0, 0, chartID.width, chartID.height);
+
+        const xValues = Array.from({ length: numSteps }, (_, i) => i);
+        const yValues = [initialValue];
+
+        for (let i = 1; i < numSteps; i++) {
+          const randomStep = Math.random();
+          const priceChange = randomStep * volatility - volatility / 2;
+          const newValue = yValues[i - 1] + priceChange;
+          yValues.push(newValue);
+        }
+
+        const myChart = new Chart(chartID, {
+          type: "line",
+          data: {
+            labels: xValues,
+            datasets: [
+              {
+                label: "Arithmetic Brownian Motion",
+                data: yValues,
+                borderColor: "blue",
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            elements: {
+              line: {
+                tension: 0.1,
+              },
+            },
+            legend: {
+              display: false,
+            },
+            tooltips: {
+              enabled: false,
+            },
+          },
+        });
+        canvasArr.push(myChart);
+      }
+
+      // Initial parameters
+      const numSteps = 100;
+      const initialValue = 0; // Initial value of the process
+      const volatility = 0.5; // Volatility of the process
+
+      // Generate the data
+      generateBrownianMotion(numSteps, initialValue, volatility, "myCanvas");
+    </script>
+  </body>
+</html>
