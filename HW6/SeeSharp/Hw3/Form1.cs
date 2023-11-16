@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Globalization;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Hw3
 {
@@ -21,7 +22,9 @@ namespace Hw3
         private bool[] isResizingList;
         private Size[] resizeStartSize;
         private static int securityScore;
-        private static int[] P = { -20, -30, -40, -50, -60, -70, -80, -90, -100 };
+        private static int[] P = { -20, -30, -40, -50, -60, -70, -80, -90, -100};
+        private static int[] PCounter = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 
         public static Random random = new Random();
 
@@ -30,10 +33,10 @@ namespace Hw3
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
 
-            textBox1.Text = "10";
-            textBox2.Text = "10";
-            textBox3.Text = "0.5";
-            textBox4.Text = "6";
+            textBox1.Text = "50";
+            textBox2.Text = "200";
+            textBox3.Text = "0.6";
+            textBox4.Text = "20";
 
 
             int numberOfCharts = 2;
@@ -43,6 +46,9 @@ namespace Hw3
             isDraggingList = new bool[numberOfCharts];
             isResizingList = new bool[numberOfCharts];
             resizeStartSize = new Size[numberOfCharts];
+
+            Label label6 = new Label();
+            this.Controls.Add(label6);
 
             for (int i = 0; i < numberOfCharts; i++)
             {
@@ -138,6 +144,8 @@ namespace Hw3
 
         private void fillChart()
         {
+            Array.Clear(PCounter, 0, PCounter.Length);
+
             int numberOfSystems = int.Parse(textBox1.Text);
             int numberOfAttacks = int.Parse(textBox2.Text);
             securityScore = int.Parse(textBox4.Text);
@@ -175,6 +183,7 @@ namespace Hw3
                 result = generateCoordinateVector(numberOfAttacks, probability, minProbability, maxProbability);
 
                 y = result;
+                PCalculator(y);
 
                 lastValues[i] = y[numberOfAttacks - 1];
 
@@ -185,38 +194,16 @@ namespace Hw3
                 series.Points.DataBindXY(x, y);
                 chart1.Series.Add(series);
             }
-
-
-            int maxLast = lastValues.Max();
-            int minLast = lastValues.Min();
-            int axesLastLength = maxLast - minLast + 1;
-            int[] yLast = new int[axesLastLength];
-            int[] xLast = new int[axesLastLength];
-
-            for (int i = 0; i < axesLastLength; i++)
-            {
-                yLast[i] = maxLast - i;
-            }
-
-            for (int i = 0; i < axesLastLength; i++)
-            {
-                for (int j = 0; j < lastValues.Length; j++)
-                {
-                    if (yLast[i] == lastValues[j])
-                    {
-                        xLast[i]++;
-                    }
-                }
-            }
+            probabilityCalculator(numberOfSystems);
 
             chart2.Series.Clear();
-            chart2.Series.Add("Last Attack");
-            chart2.Series["Last Attack"].ChartType = SeriesChartType.Bar;
+            chart2.Series.Add("Unsecurity");
+            chart2.Series["Unsecurity"].ChartType = SeriesChartType.Bar;
 
             // Bind data to the chart
-            for (int i = 0; i < yLast.Length; i++)
+            for (int i = 0; i < P.Length; i++)
             {
-                chart2.Series["Last Attack"].Points.AddXY(yLast[i], xLast[i]);
+                chart2.Series["Unsecurity"].Points.AddXY(P[i], PCounter[i]);
             }
 
 
@@ -259,61 +246,40 @@ namespace Hw3
             int sum = 0;
             float value = 0;
 
-
-
             for (int i = 1; i < size; i++)
             {
                 value = GenerateRandomDouble(minProbability, maxProbability);
                 sum += generateY(value, probability);
-
                 y[i] = sum;
-
             }
 
             return y;
         }
 
-        public static int minSecurityScore(int[] score, int indexOfP,int securityScore) {
-            bool insecure = false;
-            bool secure = false;
-
-            for (int i = 0; i < score.Length; i++) {
-                if (score[i] == P[indexOfP])
-                {
-                    insecure = true;
-                }
-                else if(score[i] == securityScore)
-                {
-                    secure = true;
-                }
-            }
-
-            for (int i = 0; i < score.Length; i++) {
-                if (insecure) {
-                    return P[indexOfP];
-                }else if (secure)
-                {
-                    return securityScore;
-                }
-            }
-
-            return score[score.Length];
-        }
-
-
-        //conta tutti i valori che ha raggiunto
-        public static int[] valueCounter(int lastValue)
+        public static void PCalculator(int[] score)
         {
-            int[] values = new int[securityScore - lastValue];
-            for(int i=0; i<(securityScore - lastValue); i++)
+            int index = 0;
+            bool secure = true;
+            for(int i = 0; i < score.Length; i++)
             {
-
+                if (score[i] == securityScore && secure){
+                    break;
+                }else if (score[i] == P[index])
+                {
+                    secure = false;
+                    PCounter[index]++;
+                    index++;
+                    
+                }
             }
         }
 
+        public void probabilityCalculator(int numberOfSystems)
+        {
+            float probabilityUnsecure = (float) PCounter[0] /numberOfSystems;
+            label6.Text = (probabilityUnsecure*100).ToString() + " %";
 
-
-
+        }
 
         public static int generateY(float attack, float probability)
         {
@@ -332,6 +298,5 @@ namespace Hw3
             fillChart();
 
         }
-
     }
 }
