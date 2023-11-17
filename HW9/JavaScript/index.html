@@ -28,25 +28,188 @@
           </select>
         </h1>
       </div>
+      <div id="ABInputs" class="input-form" style="display: none">
+        <label for="numSteps">Number of Steps:</label>
+        <input type="number" id="ABnumSteps" value="100" />
 
-      <p>
-        <label for="M">Number of Systems (M):</label>
-        <input id="M" type="number" value="15" min="1" step="1" />
-      </p>
-      <p>
-        <label for="N">Number of Attacks (N):</label>
-        <input id="N" type="number" value="250" min="1" step="1" />
-      </p>
-      <p>
-        <label for="p">Probability of successfull attack (P): </label>
-        <input id="p" type="number" value="0.5" min="0" max="1" step="0.1" />
-      </p>
-      <p>
-        <label for="p">Security Score (S): </label>
-        <input id="S" type="number" value="20" min="20" max="100" step="10" />
-      </p>
+        <label for="mu">Mu (Drift):</label>
+        <input type="number" id="ABmu" value="0.1" />
+
+        <label for="sigma">Sigma (Volatility):</label>
+        <input type="number" id="ABsigma" value="0.2" />
+
+        <label for="X0">X0 (Initial Value):</label>
+        <input type="number" id="ABX0" value="0" />
+
+        <label for="dt">Time Increment (dt):</label>
+        <input type="number" id="ABdt" value="0.01" />
+
+        <button onclick="generateArithmeticBrownianMotion()">Generate</button>
+      </div>
+
+      <div id="GBInputs" class="input-form" style="display: none">
+        <label for="numSteps">Number of Steps:</label>
+        <input type="number" id="GBnumSteps" value="100" />
+
+        <label for="mu">Mu (Drift):</label>
+        <input type="number" id="GBmu" value="1" />
+
+        <label for="sigma">Sigma (Volatility):</label>
+        <input type="number" id="GBsigma" value="0.2" />
+
+        <label for="S0">S0 (Initial Value):</label>
+        <input type="number" id="GBS0" value="1" />
+
+        <label for="dt">Time Increment (dt):</label>
+        <input type="number" id="GBdt" value="0.01" />
+
+        <button onclick="generateGeometricBrownianMotion()">Generate</button>
+      </div>
+
+      <div id="OUInputs" class="input-form" style="display: none">
+        <label for="numSteps">Number of Steps:</label>
+        <input type="number" id="OUnumSteps" value="100" />
+
+        <label for="mu">Mu (Drift):</label>
+        <input type="number" id="OUmu" value="0" />
+
+        <label for="theta">Theta:</label>
+        <input type="number" id="OUtheta" value="1" />
+
+        <label for="sigma">Sigma:</label>
+        <input type="number" id="OUsigma" value="2" />
+
+        <label for="X0">X0 (Initial Value):</label>
+        <input type="number" id="OUX0" value="-10" />
+
+        <label for="dt">Time Increment (dt):</label>
+        <input type="number" id="OUdt" value="0.05" />
+
+        <button onclick="generateOU()">Generate</button>
+      </div>
+
+      <div id="VInputs" class="input-form" style="display: none">
+        <label for="numSteps">Number of Steps:</label>
+        <input type="number" id="VnumSteps" value="100" />
+
+        <label for="k">K:</label>
+        <input type="number" id="Vk" value="0.2" />
+
+        <label for="theta">Theta:</label>
+        <input type="number" id="Vtheta" value="0.05" />
+
+        <label for="sigma">Sigma:</label>
+        <input type="number" id="Vsigma" value="0.1" />
+
+        <label for="R0">R0:</label>
+        <input type="number" id="VR0" value="0" />
+
+        <label for="dt">Time Increment (dt):</label>
+        <input type="number" id="Vdt" value="0.01" />
+
+        <button onclick="generateVasicek()">Generate</button>
+      </div>
+
+      <div id="HWInputs" class="input-form" style="display: none">
+        <label for="hwNumSteps">Number of Steps:</label>
+        <input type="number" id="hwNumSteps" value="100" />
+
+        <label for="hwTheta1">Theta1:</label>
+        <input type="number" id="hwTheta1" value="0.02" />
+
+        <label for="HWTheta2">Theta2:</label>
+        <input type="number" id="HWTheta2" value="0.01" />
+
+        <label for="hwA">a:</label>
+        <input type="number" id="hwA" value="0.1" />
+
+        <label for="hwSigma">Sigma:</label>
+        <input type="number" id="hwSigma" value="0.02" />
+
+        <label for="hwR0">R0 (Initial Value):</label>
+        <input type="number" id="hwR0" value="0.015" />
+
+        <label for="hwDt">Time Increment (dt):</label>
+        <input type="number" id="hwDt" value="0.01" />
+
+        <button onclick="generateHullWhite()">Generate</button>
+      </div>
+
+      <div id="CIRInputs" class="input-form" style="display: none">
+        <label for="cirNumSteps">Number of Steps:</label>
+        <input type="number" id="CIRNumSteps" value="100" />
+
+        <label for="CIRK">k:</label>
+        <input type="number" id="CIRK" value="0.1" />
+
+        <label for="CIRTheta">Theta:</label>
+        <input type="number" id="CIRTheta" value="0.05" />
+
+        <label for="CIRSigma">Sigma:</label>
+        <input type="number" id="CIRSigma" value="0.02" />
+
+        <label for="CIRR0">R0 (Initial Value):</label>
+        <input type="number" id="CIRR0" value="0.03" />
+
+        <label for="CIRdt">Time Increment (dt):</label>
+        <input type="number" id="CIRdt" value="0.01" />
+
+        <button onclick="generateCoxIngersollRoss()">Generate</button>
+      </div>
+
+      <div id="BKInputs" class="input-form" style="display: none">
+        <label for="bkNumSteps">Number of Steps:</label>
+        <input type="number" id="bkNumSteps" value="100" />
+
+        <label for="BKTheta1">Theta1:</label>
+        <input type="number" id="BKTheta1" value="0.02" />
+
+        <label for="BKTheta2">Theta2:</label>
+        <input type="number" id="BKTheta2" value="0.01" />
+
+        <label for="BKA">a:</label>
+        <input type="number" id="BKA" value="0.5" />
+
+        <label for="BKSigma">Sigma:</label>
+        <input type="number" id="BKSigma" value="0.02" />
+
+        <label for="BKR0">R0 (Initial Value):</label>
+        <input type="number" id="BKR0" value="0.015" />
+
+        <label for="BKDt">Time Increment (dt):</label>
+        <input type="number" id="BKDt" value="0.01" />
+
+        <button onclick="generateBlackKarasinski()">Generate</button>
+      </div>
+
+      <div id="HInputs" class="input-form" style="display: none">
+        <label for="hNumSteps">Number of Steps:</label>
+        <input type="number" id="hNumSteps" value="100" />
+
+        <label for="HMu">Mu:</label>
+        <input type="number" id="HMu" value="0.05" />
+
+        <label for="HK">k:</label>
+        <input type="number" id="HK" value="1" />
+
+        <label for="HTheta">Theta:</label>
+        <input type="number" id="HTheta" value="0.1" />
+
+        <label for="HSigma">Sigma:</label>
+        <input type="number" id="HSigma" value="0.2" />
+
+        <label for="HS0">S0 (Initial Stock Price):</label>
+        <input type="number" id="HS0" value="100" />
+
+        <label for="HV0">v0 (Initial Volatility):</label>
+        <input type="number" id="HV0" value="0.2" />
+
+        <label for="HDt">Time Increment (dt):</label>
+        <input type="number" id="HDt" value="0.01" />
+
+        <button onclick="generateHeston()">Generate</button>
+      </div>
     </div>
-
     <div class="resizable">
       <div style="display: flex; justify-content: center">
         <div id="canvas1" class="canvasWrapper">
@@ -55,151 +218,6 @@
       </div>
     </div>
 
-    <script>
-      const canvas1 = document.getElementById("canvas1");
-      const myCanvas = document.getElementById("myCanvas");
-      const chartID = "myCanvas";
-      const ctx = myCanvas.getContext("2d");
-      let canvasArr = [];
-
-      function destroyCanvas() {
-        for (let c of canvasArr) c.destroy();
-      }
-
-      document.getElementById("SDE").addEventListener("change", function () {
-        destroyCanvas();
-        var selectedAlg = this.value;
-
-        switch (selectedAlg) {
-          case "empty":
-            console.log("No algorithm selected");
-            break;
-
-          case "AB":
-            console.log("Arithmetic Brownian selected");
-
-            // Initial parameters
-            const numSteps = 100;
-            const initialValue = 0; // Initial value of the process
-            const volatility = 0.5; // Volatility of the process
-
-            // Generate the data
-            generateBrownianMotion(
-              numSteps,
-              initialValue,
-              volatility,
-              "myCanvas"
-            );
-            break;
-
-          case "GB":
-            console.log("Geometric Brownian selected");
-            // Add your code for Geometric Brownian here
-            break;
-
-          case "OU":
-            console.log("Ornstein-Uhlenbeck selected");
-
-            // Add your code for Ornstein-Uhlenbeck here
-            break;
-
-          case "V":
-            console.log("Vasicek selected");
-            // Add your code for Vasicek here
-            break;
-
-          case "HW":
-            console.log("Hull-White selected");
-            // Add your code for Hull-White here
-            break;
-
-          case "CIR":
-            console.log("Cox-Ingersoll-Ross selected");
-            // Add your code for Cox-Ingersoll-Ross here
-            break;
-
-          case "BK":
-            console.log("Black-Karasinski selected");
-            // Add your code for Black-Karasinski here
-            break;
-
-          case "H":
-            console.log("Heston selected");
-            // Add your code for Heston here
-            break;
-
-          case "CM":
-            console.log("Chen model selected");
-            // Add your code for Chen model here
-            break;
-        }
-      });
-
-      // Move canvas 1
-      myCanvas.addEventListener("mousedown", () => {
-        myCanvas.addEventListener("mousemove", update1);
-        window.addEventListener("mouseup", () => {
-          myCanvas.removeEventListener("mousemove", update1);
-        });
-      });
-
-      function update1(ev) {
-        canvas1.style.setProperty("left", `${ev.x - 200}px`);
-        canvas1.style.setProperty("top", `${ev.y - 25}px`);
-      }
-
-      function getRandomRGBAColor() {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-        const a = Math.random();
-        return `rgba(${r}, ${g}, ${b}, ${a})`;
-      }
-
-      // Function to generate Arithmetic Brownian Motion data
-      function generateBrownianMotion(numSteps, initialValue, volatility) {
-        ctx.clearRect(0, 0, chartID.width, chartID.height);
-
-        const xValues = Array.from({ length: numSteps }, (_, i) => i);
-        const yValues = [initialValue];
-
-        for (let i = 1; i < numSteps; i++) {
-          const randomStep = Math.random();
-          const priceChange = randomStep * volatility - volatility / 2;
-          const newValue = yValues[i - 1] + priceChange;
-          yValues.push(newValue);
-        }
-
-        const myChart = new Chart(chartID, {
-          type: "line",
-          data: {
-            labels: xValues,
-            datasets: [
-              {
-                label: "Arithmetic Brownian Motion",
-                data: yValues,
-                borderColor: "blue",
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            elements: {
-              line: {
-                tension: 0.1,
-              },
-            },
-            legend: {
-              display: false,
-            },
-            tooltips: {
-              enabled: false,
-            },
-          },
-        });
-        canvasArr.push(myChart);
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
