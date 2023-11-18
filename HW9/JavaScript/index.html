@@ -28,192 +28,199 @@
           </select>
         </h1>
       </div>
-      <div id="ABInputs" class="input-form" style="display: none">
-        <label for="numSteps">Number of Steps:</label>
-        <input type="number" id="ABnumSteps" value="100" />
-
-        <label for="mu">Mu (Drift):</label>
-        <input type="number" id="ABmu" value="0.1" />
-
-        <label for="sigma">Sigma (Volatility):</label>
-        <input type="number" id="ABsigma" value="0.2" />
-
-        <label for="X0">X0 (Initial Value):</label>
-        <input type="number" id="ABX0" value="0" />
-
-        <label for="dt">Time Increment (dt):</label>
-        <input type="number" id="ABdt" value="0.01" />
-
-        <button onclick="generateArithmeticBrownianMotion()">Generate</button>
-      </div>
-
-      <div id="GBInputs" class="input-form" style="display: none">
-        <label for="numSteps">Number of Steps:</label>
-        <input type="number" id="GBnumSteps" value="100" />
-
-        <label for="mu">Mu (Drift):</label>
-        <input type="number" id="GBmu" value="1" />
-
-        <label for="sigma">Sigma (Volatility):</label>
-        <input type="number" id="GBsigma" value="0.2" />
-
-        <label for="S0">S0 (Initial Value):</label>
-        <input type="number" id="GBS0" value="1" />
-
-        <label for="dt">Time Increment (dt):</label>
-        <input type="number" id="GBdt" value="0.01" />
-
-        <button onclick="generateGeometricBrownianMotion()">Generate</button>
-      </div>
-
-      <div id="OUInputs" class="input-form" style="display: none">
-        <label for="numSteps">Number of Steps:</label>
-        <input type="number" id="OUnumSteps" value="100" />
-
-        <label for="mu">Mu (Drift):</label>
-        <input type="number" id="OUmu" value="0" />
-
-        <label for="theta">Theta:</label>
-        <input type="number" id="OUtheta" value="1" />
-
-        <label for="sigma">Sigma:</label>
-        <input type="number" id="OUsigma" value="2" />
-
-        <label for="X0">X0 (Initial Value):</label>
-        <input type="number" id="OUX0" value="-10" />
-
-        <label for="dt">Time Increment (dt):</label>
-        <input type="number" id="OUdt" value="0.05" />
-
-        <button onclick="generateOU()">Generate</button>
-      </div>
-
-      <div id="VInputs" class="input-form" style="display: none">
-        <label for="numSteps">Number of Steps:</label>
-        <input type="number" id="VnumSteps" value="100" />
-
-        <label for="k">K:</label>
-        <input type="number" id="Vk" value="0.2" />
-
-        <label for="theta">Theta:</label>
-        <input type="number" id="Vtheta" value="0.05" />
-
-        <label for="sigma">Sigma:</label>
-        <input type="number" id="Vsigma" value="0.1" />
-
-        <label for="R0">R0:</label>
-        <input type="number" id="VR0" value="0" />
-
-        <label for="dt">Time Increment (dt):</label>
-        <input type="number" id="Vdt" value="0.01" />
-
-        <button onclick="generateVasicek()">Generate</button>
-      </div>
-
-      <div id="HWInputs" class="input-form" style="display: none">
-        <label for="hwNumSteps">Number of Steps:</label>
-        <input type="number" id="hwNumSteps" value="100" />
-
-        <label for="hwTheta1">Theta1:</label>
-        <input type="number" id="hwTheta1" value="0.02" />
-
-        <label for="HWTheta2">Theta2:</label>
-        <input type="number" id="HWTheta2" value="0.01" />
-
-        <label for="hwA">a:</label>
-        <input type="number" id="hwA" value="0.1" />
-
-        <label for="hwSigma">Sigma:</label>
-        <input type="number" id="hwSigma" value="0.02" />
-
-        <label for="hwR0">R0 (Initial Value):</label>
-        <input type="number" id="hwR0" value="0.015" />
-
-        <label for="hwDt">Time Increment (dt):</label>
-        <input type="number" id="hwDt" value="0.01" />
-
-        <button onclick="generateHullWhite()">Generate</button>
-      </div>
-
-      <div id="CIRInputs" class="input-form" style="display: none">
-        <label for="cirNumSteps">Number of Steps:</label>
-        <input type="number" id="CIRNumSteps" value="100" />
-
-        <label for="CIRK">k:</label>
-        <input type="number" id="CIRK" value="0.1" />
-
-        <label for="CIRTheta">Theta:</label>
-        <input type="number" id="CIRTheta" value="0.05" />
-
-        <label for="CIRSigma">Sigma:</label>
-        <input type="number" id="CIRSigma" value="0.02" />
-
-        <label for="CIRR0">R0 (Initial Value):</label>
-        <input type="number" id="CIRR0" value="0.03" />
-
-        <label for="CIRdt">Time Increment (dt):</label>
-        <input type="number" id="CIRdt" value="0.01" />
-
-        <button onclick="generateCoxIngersollRoss()">Generate</button>
-      </div>
-
-      <div id="BKInputs" class="input-form" style="display: none">
-        <label for="bkNumSteps">Number of Steps:</label>
-        <input type="number" id="bkNumSteps" value="100" />
-
-        <label for="BKTheta1">Theta1:</label>
-        <input type="number" id="BKTheta1" value="0.02" />
-
-        <label for="BKTheta2">Theta2:</label>
-        <input type="number" id="BKTheta2" value="0.01" />
-
-        <label for="BKA">a:</label>
-        <input type="number" id="BKA" value="0.5" />
-
-        <label for="BKSigma">Sigma:</label>
-        <input type="number" id="BKSigma" value="0.02" />
-
-        <label for="BKR0">R0 (Initial Value):</label>
-        <input type="number" id="BKR0" value="0.015" />
-
-        <label for="BKDt">Time Increment (dt):</label>
-        <input type="number" id="BKDt" value="0.01" />
-
-        <button onclick="generateBlackKarasinski()">Generate</button>
-      </div>
-
-      <div id="HInputs" class="input-form" style="display: none">
-        <label for="hNumSteps">Number of Steps:</label>
-        <input type="number" id="hNumSteps" value="100" />
-
-        <label for="HMu">Mu:</label>
-        <input type="number" id="HMu" value="0.05" />
-
-        <label for="HK">k:</label>
-        <input type="number" id="HK" value="1" />
-
-        <label for="HTheta">Theta:</label>
-        <input type="number" id="HTheta" value="0.1" />
-
-        <label for="HSigma">Sigma:</label>
-        <input type="number" id="HSigma" value="0.2" />
-
-        <label for="HS0">S0 (Initial Stock Price):</label>
-        <input type="number" id="HS0" value="100" />
-
-        <label for="HV0">v0 (Initial Volatility):</label>
-        <input type="number" id="HV0" value="0.2" />
-
-        <label for="HDt">Time Increment (dt):</label>
-        <input type="number" id="HDt" value="0.01" />
-
-        <button onclick="generateHeston()">Generate</button>
-      </div>
     </div>
-    <div class="resizable">
-      <div style="display: flex; justify-content: center">
-        <div id="canvas1" class="canvasWrapper">
-          <canvas id="myCanvas"></canvas>
+
+    <div style="display: flex">
+      <div style="width: 10%">
+        <div id="ABInputs" class="input-form" style="display: none">
+          <label for="numSteps">Number of Steps:</label>
+          <input type="number" id="ABnumSteps" value="100" />
+
+          <label for="mu">Mu (Drift):</label>
+          <input type="number" id="ABmu" value="0.1" />
+
+          <label for="sigma">Sigma (Volatility):</label>
+          <input type="number" id="ABsigma" value="0.2" />
+
+          <label for="X0">X0 (Initial Value):</label>
+          <input type="number" id="ABX0" value="0" />
+
+          <label for="dt">Time Increment (dt):</label>
+          <input type="number" id="ABdt" value="0.01" />
+
+          <button onclick="generateArithmeticBrownianMotion()">Generate</button>
+        </div>
+
+        <div id="GBInputs" class="input-form" style="display: none">
+          <label for="numSteps">Number of Steps:</label>
+          <input type="number" id="GBnumSteps" value="100" />
+
+          <label for="mu">Mu (Drift):</label>
+          <input type="number" id="GBmu" value="1" />
+
+          <label for="sigma">Sigma (Volatility):</label>
+          <input type="number" id="GBsigma" value="0.2" />
+
+          <label for="S0">S0 (Initial Value):</label>
+          <input type="number" id="GBS0" value="1" />
+
+          <label for="dt">Time Increment (dt):</label>
+          <input type="number" id="GBdt" value="0.01" />
+
+          <button onclick="generateGeometricBrownianMotion()">Generate</button>
+        </div>
+
+        <div id="OUInputs" class="input-form" style="display: none">
+          <label for="numSteps">Number of Steps:</label>
+          <input type="number" id="OUnumSteps" value="100" />
+
+          <label for="mu">Mu (Drift):</label>
+          <input type="number" id="OUmu" value="0" />
+
+          <label for="theta">Theta:</label>
+          <input type="number" id="OUtheta" value="1" />
+
+          <label for="sigma">Sigma:</label>
+          <input type="number" id="OUsigma" value="2" />
+
+          <label for="X0">X0 (Initial Value):</label>
+          <input type="number" id="OUX0" value="-10" />
+
+          <label for="dt">Time Increment (dt):</label>
+          <input type="number" id="OUdt" value="0.05" />
+
+          <button onclick="generateOU()">Generate</button>
+        </div>
+
+        <div id="VInputs" class="input-form" style="display: none">
+          <label for="numSteps">Number of Steps:</label>
+          <input type="number" id="VnumSteps" value="100" />
+
+          <label for="k">K:</label>
+          <input type="number" id="Vk" value="0.2" />
+
+          <label for="theta">Theta:</label>
+          <input type="number" id="Vtheta" value="0.05" />
+
+          <label for="sigma">Sigma:</label>
+          <input type="number" id="Vsigma" value="0.1" />
+
+          <label for="R0">R0:</label>
+          <input type="number" id="VR0" value="0" />
+
+          <label for="dt">Time Increment (dt):</label>
+          <input type="number" id="Vdt" value="0.01" />
+
+          <button onclick="generateVasicek()">Generate</button>
+        </div>
+
+        <div id="HWInputs" class="input-form" style="display: none">
+          <label for="hwNumSteps">Number of Steps:</label>
+          <input type="number" id="hwNumSteps" value="100" />
+
+          <label for="hwTheta1">Theta1:</label>
+          <input type="number" id="hwTheta1" value="0.02" />
+
+          <label for="HWTheta2">Theta2:</label>
+          <input type="number" id="HWTheta2" value="0.01" />
+
+          <label for="hwA">a:</label>
+          <input type="number" id="hwA" value="0.1" />
+
+          <label for="hwSigma">Sigma:</label>
+          <input type="number" id="hwSigma" value="0.02" />
+
+          <label for="hwR0">R0 (Initial Value):</label>
+          <input type="number" id="hwR0" value="0.015" />
+
+          <label for="hwDt">Time Increment (dt):</label>
+          <input type="number" id="hwDt" value="0.01" />
+
+          <button onclick="generateHullWhite()">Generate</button>
+        </div>
+
+        <div id="CIRInputs" class="input-form" style="display: none">
+          <label for="cirNumSteps">Number of Steps:</label>
+          <input type="number" id="CIRNumSteps" value="100" />
+
+          <label for="CIRK">k:</label>
+          <input type="number" id="CIRK" value="0.1" />
+
+          <label for="CIRTheta">Theta:</label>
+          <input type="number" id="CIRTheta" value="0.05" />
+
+          <label for="CIRSigma">Sigma:</label>
+          <input type="number" id="CIRSigma" value="0.02" />
+
+          <label for="CIRR0">R0 (Initial Value):</label>
+          <input type="number" id="CIRR0" value="0.03" />
+
+          <label for="CIRdt">Time Increment (dt):</label>
+          <input type="number" id="CIRdt" value="0.01" />
+
+          <button onclick="generateCoxIngersollRoss()">Generate</button>
+        </div>
+
+        <div id="BKInputs" class="input-form" style="display: none">
+          <label for="bkNumSteps">Number of Steps:</label>
+          <input type="number" id="bkNumSteps" value="100" />
+
+          <label for="BKTheta1">Theta1:</label>
+          <input type="number" id="BKTheta1" value="0.02" />
+
+          <label for="BKTheta2">Theta2:</label>
+          <input type="number" id="BKTheta2" value="0.01" />
+
+          <label for="BKA">a:</label>
+          <input type="number" id="BKA" value="0.5" />
+
+          <label for="BKSigma">Sigma:</label>
+          <input type="number" id="BKSigma" value="0.02" />
+
+          <label for="BKR0">R0 (Initial Value):</label>
+          <input type="number" id="BKR0" value="0.015" />
+
+          <label for="BKDt">Time Increment (dt):</label>
+          <input type="number" id="BKDt" value="0.01" />
+
+          <button onclick="generateBlackKarasinski()">Generate</button>
+        </div>
+
+        <div id="HInputs" class="input-form" style="display: none">
+          <label for="hNumSteps">Number of Steps:</label>
+          <input type="number" id="hNumSteps" value="100" />
+
+          <label for="HMu">Mu:</label>
+          <input type="number" id="HMu" value="0.05" />
+
+          <label for="HK">k:</label>
+          <input type="number" id="HK" value="1" />
+
+          <label for="HTheta">Theta:</label>
+          <input type="number" id="HTheta" value="0.1" />
+
+          <label for="HSigma">Sigma:</label>
+          <input type="number" id="HSigma" value="0.2" />
+
+          <label for="HS0">S0 (Initial Stock Price):</label>
+          <input type="number" id="HS0" value="100" />
+
+          <label for="HV0">v0 (Initial Volatility):</label>
+          <input type="number" id="HV0" value="0.2" />
+
+          <label for="HDt">Time Increment (dt):</label>
+          <input type="number" id="HDt" value="0.01" />
+
+          <button onclick="generateHeston()">Generate</button>
+        </div>
+      </div>
+      <div style="width: 90%">
+        <div class="resizable">
+          <div style="display: flex; justify-content: center">
+            <div id="canvas1" class="canvasWrapper">
+              <canvas id="myCanvas"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>

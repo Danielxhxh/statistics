@@ -5,50 +5,44 @@ body {
 h1 {
   width: 100%;
   text-align: center;
+  font-size: 25px;
 }
 
-.container p {
-  width: 30%;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-input,
-select {
-  width: 80%;
+input {
+  width: 90%;
   padding: 5px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  color: #190482;
 }
 
-/* Style the button */
+select {
+  width: 30%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #190482;
+  font-size: 20px;
+}
+
 button {
   background-color: #0074d9;
+  width: 90%;
   color: #fff;
-  padding: 10px 20px;
+  padding: 5px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-bottom: 20px;
 }
 
 button:hover {
   background-color: #0056a7;
 }
 
-.container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-
+/* Canvas style */
 .canvasWrapper {
   width: 100%;
   resize: both;
@@ -57,7 +51,15 @@ button:hover {
 }
 
 #canvas1 {
-  width: 60%;
+  width: 80%;
   height: auto;
   position: absolute;
+}
+
+/* Form inputs */
+.input-form label,
+.input-form input,
+.input-form button {
+  display: block;
+  margin-bottom: 10px; /* Add some spacing between elements for better readability */
 }

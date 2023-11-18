@@ -98,6 +98,8 @@ function getRandomRGBAColor() {
 
 // Function to generate Arithmetic Brownian Motion data
 function generateArithmeticBrownianMotion() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("ABnumSteps").value);
   const mu = parseFloat(document.getElementById("ABmu").value);
   const sigma = parseFloat(document.getElementById("ABsigma").value);
@@ -119,6 +121,8 @@ function generateArithmeticBrownianMotion() {
 
 // Function to generate Geometric Brownian Motion data
 function generateGeometricBrownianMotion() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("GBnumSteps").value);
   const mu = parseFloat(document.getElementById("GBmu").value);
   const sigma = parseFloat(document.getElementById("GBsigma").value);
@@ -139,6 +143,8 @@ function generateGeometricBrownianMotion() {
 
 // Function to generate Ornstein-Uhlenbeck
 function generateOU() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("OUnumSteps").value);
   const theta = parseFloat(document.getElementById("OUtheta").value);
   const mu = parseFloat(document.getElementById("OUmu").value);
@@ -159,6 +165,8 @@ function generateOU() {
 
 // Function to generate Vasicek
 function generateVasicek() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("VnumSteps").value);
   const theta = parseFloat(document.getElementById("Vtheta").value);
   const k = parseFloat(document.getElementById("Vk").value);
@@ -178,6 +186,8 @@ function generateVasicek() {
 
 // Function to generate Hull-White
 function generateHullWhite() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("hwNumSteps").value);
   const theta1 = parseFloat(document.getElementById("hwTheta1").value);
   const theta2 = parseFloat(document.getElementById("HWTheta2").value);
@@ -198,6 +208,8 @@ function generateHullWhite() {
 
 // Function to generate Cox-Ingersoll-Ross
 function generateCoxIngersollRoss() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("CIRNumSteps").value);
   const k = parseFloat(document.getElementById("CIRK").value);
   const theta = parseFloat(document.getElementById("CIRTheta").value);
@@ -218,6 +230,8 @@ function generateCoxIngersollRoss() {
 
 // Function to generate Black-Karasinski
 function generateBlackKarasinski() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("bkNumSteps").value);
   const theta1 = parseFloat(document.getElementById("BKTheta1").value);
   const theta2 = parseFloat(document.getElementById("BKTheta2").value);
@@ -242,6 +256,8 @@ function generateBlackKarasinski() {
 
 // Function to generate Heston
 function generateHeston() {
+  destroyCanvas();
+
   const numSteps = parseInt(document.getElementById("hNumSteps").value);
   const mu = parseFloat(document.getElementById("HMu").value);
   const k = parseFloat(document.getElementById("HK").value);
