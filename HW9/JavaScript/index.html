@@ -25,6 +25,7 @@
             <option value="BK">Black-Karasinski</option>
             <option value="H">Heston</option>
             <option value="CM">Chen model</option>
+            <option value="MANUAL-SDE">Manual SDE</option>
           </select>
         </h1>
       </div>
@@ -282,6 +283,31 @@
           <input type="number" id="CDt" value="0.01" />
 
           <button onclick="clickChen()">Generate</button>
+        </div>
+
+        <div id="SDEInputs" class="input-form" style="display: none">
+          <label for="SDEinstances">Number of instances:</label>
+          <input type="number" id="SDEinstances" value="10" />
+
+          <label for="SDENumSteps">Number of Steps:</label>
+          <input type="number" id="SDENumSteps" value="100" />
+
+          <label for="SDEA">a:</label>
+          <input type="number" id="SDEA" value="0.0" />
+
+          <label for="SDEB">b:</label>
+          <input type="number" id="SDEB" value="0.0" />
+
+          <label for="SDEX0">X0:</label>
+          <input type="number" id="SDEX0" value="0.0" />
+
+          <label for="SDESigma">Sigma:</label>
+          <input type="number" id="SDESigma" value="0.0" />
+
+          <label for="SDEDt">dt:</label>
+          <input type="number" id="SDEDt" value="0.0" />
+
+          <button onclick="clickSDE()">Generate</button>
         </div>
       </div>
 

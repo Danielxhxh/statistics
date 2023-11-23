@@ -91,6 +91,12 @@ document.getElementById("SDE").addEventListener("change", function () {
       canvas1.style.display = "none";
       canvas2.style.display = "none";
       break;
+    case "MANUAL-SDE":
+      console.log("Manuel SDE selected");
+      document.getElementById("SDEInputs").style.display = "block";
+      canvas1.style.display = "none";
+      canvas2.style.display = "none";
+      break;
   }
 });
 
@@ -560,36 +566,61 @@ function clickChen() {
   generateChen(1);
 }
 
-// Function to generate general stocastics process, it takes as input a,b,sigma,X0,dt, T and can process any EDS
-function stochasticEulerMethod(a, b, X0, sigma, dt, labelGraph) {
-  let numSteps = 100;
-  let yValues = [X0];
-
-  for (let i = 0; i < numSteps; i++) {
-    const dW = Math.sqrt(dt) * normalDistribution();
-    const k = a * (b - yValues[i]) * dt + sigma * dW; // theta * (mu - X[i]) * dt + sigma * dW;
-    yValues.push(yValues[i] + k);
-  }
+function stochasticEulerMethod() {
+  numberOfLine = parseInt(document.getElementById("SDEinstances").value);
+  const numSteps = parseInt(document.getElementById("SDENumSteps").value);
+  const a = parseFloat(document.getElementById("SDEB").value);
+  const b = parseFloat(document.getElementById("SDEB").value);
+  const X0 = parseFloat(document.getElementById("SDEX0").value);
+  const sigma = parseFloat(document.getElementById("SDESigma").value);
+  const dt = parseFloat(document.getElementById("SDEDt").value);
   const xValues = Array.from({ length: numSteps }, (_, i) => i);
-  drawGraph(xValues, yValues, labelGraph);
+  let yValues = [X0];
+  initializeGraph("Euler general method");
+  canvas1.style.display = "block";
+  for (let j = 0; j < numberOfLine; j++) {
+    for (let i = 0; i < numSteps; i++) {
+      const dW = Math.sqrt(dt) * normalDistribution();
+      const k = a * (b - yValues[i]) * dt + sigma * dW;
+      yValues.push(yValues[i] + k);
+    }
+    console.log(yValues);
+    addLine(xValues, yValues);
+    yValues = [X0];
+  }
 }
 
-// Function to generate general stocastics process, it takes as input a,b,sigma,X0,dt, T and can process any EDS
-function stochasticRungeKuttaMethod(a, b, X0, sigma, dt, T) {
-  const numSteps = 100;
+function stochasticRungeKuttaMethod() {
+  numberOfLine = parseInt(document.getElementById("SDEinstances").value);
+  const numSteps = parseInt(document.getElementById("SDENumSteps").value);
+  const a = parseFloat(document.getElementById("SDEB").value);
+  const b = parseFloat(document.getElementById("SDEB").value);
+  const X0 = parseFloat(document.getElementById("SDEX0").value);
+  const sigma = parseFloat(document.getElementById("SDESigma").value);
+  const dt = parseFloat(document.getElementById("SDEDt").value);
   let X = [X0];
+  initializeGraph2("Runge kutta general method");
+  canvas2.style.display = "block";
+  const xValues = Array.from({ length: numSteps }, (_, i) => i);
+  for (let j = 0; j < numberOfLine; j++) {
+    for (let i = 0; i < numSteps; i++) {
+      const dW1 = Math.sqrt(dt) * normalDistribution();
+      const k1 = a * (b - X[i]) * dt + sigma * dW1;
+      const dW2 = Math.sqrt(dt) * normalDistribution();
+      const k2 = a * (b - (X[i] + 0.5 * k1)) * dt + sigma * dW2;
 
-  for (let i = 0; i < numSteps; i++) {
-    const dW1 = Math.sqrt(dt) * normalDistribution();
-    const k1 = a * (b - X[i]) * dt + sigma * dW1;
-    const dW2 = Math.sqrt(dt) * normalDistribution();
-    const k2 = a * (b - (X[i] + 0.5 * k1)) * dt + sigma * dW2;
-
-    const increment = k2;
-    X.push(X[i] + increment);
+      const increment = k2;
+      X.push(X[i] + increment);
+    }
+    addLine(xValues, X);
+    X = [X0];
   }
+}
 
-  return X;
+function clickSDE() {
+  destroyCanvas();
+  stochasticEulerMethod();
+  stochasticRungeKuttaMethod();
 }
 
 function normalDistribution() {
