@@ -30,9 +30,12 @@
       </div>
     </div>
 
-    <div style="display: flex">
+    <div style="display: flex" id="container-graph">
       <div style="width: 10%">
         <div id="ABInputs" class="input-form" style="display: none">
+          <label for="ABinstances">Number of instances:</label>
+          <input type="number" id="ABinstances" value="10" />
+
           <label for="numSteps">Number of Steps:</label>
           <input type="number" id="ABnumSteps" value="100" />
 
@@ -48,15 +51,18 @@
           <label for="dt">Time Increment (dt):</label>
           <input type="number" id="ABdt" value="0.01" />
 
-          <button onclick="generateArithmeticBrownianMotion()">Generate</button>
+          <button onclick="clickArithmeticBrownianMotion()">Generate</button>
         </div>
 
         <div id="GBInputs" class="input-form" style="display: none">
+          <label for="GBinstances">Number of instances:</label>
+          <input type="number" id="GBinstances" value="10" />
+
           <label for="numSteps">Number of Steps:</label>
           <input type="number" id="GBnumSteps" value="100" />
 
           <label for="mu">Mu (Drift):</label>
-          <input type="number" id="GBmu" value="1" />
+          <input type="number" id="GBmu" value="0.1" />
 
           <label for="sigma">Sigma (Volatility):</label>
           <input type="number" id="GBsigma" value="0.2" />
@@ -67,10 +73,13 @@
           <label for="dt">Time Increment (dt):</label>
           <input type="number" id="GBdt" value="0.01" />
 
-          <button onclick="generateGeometricBrownianMotion()">Generate</button>
+          <button onclick="clickGeometricBrownianMotion()">Generate</button>
         </div>
 
         <div id="OUInputs" class="input-form" style="display: none">
+          <label for="OUinstances">Number of instances:</label>
+          <input type="number" id="OUinstances" value="10" />
+
           <label for="numSteps">Number of Steps:</label>
           <input type="number" id="OUnumSteps" value="100" />
 
@@ -81,7 +90,7 @@
           <input type="number" id="OUtheta" value="1" />
 
           <label for="sigma">Sigma:</label>
-          <input type="number" id="OUsigma" value="2" />
+          <input type="number" id="OUsigma" value="1.41421356237" />
 
           <label for="X0">X0 (Initial Value):</label>
           <input type="number" id="OUX0" value="-10" />
@@ -89,10 +98,13 @@
           <label for="dt">Time Increment (dt):</label>
           <input type="number" id="OUdt" value="0.05" />
 
-          <button onclick="generateOU()">Generate</button>
+          <button onclick="clickOU()">Generate</button>
         </div>
 
         <div id="VInputs" class="input-form" style="display: none">
+          <label for="Vinstances">Number of instances:</label>
+          <input type="number" id="Vinstances" value="10" />
+
           <label for="numSteps">Number of Steps:</label>
           <input type="number" id="VnumSteps" value="100" />
 
@@ -111,10 +123,13 @@
           <label for="dt">Time Increment (dt):</label>
           <input type="number" id="Vdt" value="0.01" />
 
-          <button onclick="generateVasicek()">Generate</button>
+          <button onclick="clickVasicek()">Generate</button>
         </div>
 
         <div id="HWInputs" class="input-form" style="display: none">
+          <label for="HWinstances">Number of instances:</label>
+          <input type="number" id="HWinstances" value="10" />
+
           <label for="hwNumSteps">Number of Steps:</label>
           <input type="number" id="hwNumSteps" value="100" />
 
@@ -122,7 +137,7 @@
           <input type="number" id="hwTheta1" value="0.02" />
 
           <label for="HWTheta2">Theta2:</label>
-          <input type="number" id="HWTheta2" value="0.01" />
+          <input type="number" id="hwTheta2" value="0.01" />
 
           <label for="hwA">a:</label>
           <input type="number" id="hwA" value="0.1" />
@@ -136,10 +151,13 @@
           <label for="hwDt">Time Increment (dt):</label>
           <input type="number" id="hwDt" value="0.01" />
 
-          <button onclick="generateHullWhite()">Generate</button>
+          <button onclick="clickHullWhite()">Generate</button>
         </div>
 
         <div id="CIRInputs" class="input-form" style="display: none">
+          <label for="CIRinstances">Number of instances:</label>
+          <input type="number" id="CIRinstances" value="10" />
+
           <label for="cirNumSteps">Number of Steps:</label>
           <input type="number" id="CIRNumSteps" value="100" />
 
@@ -158,10 +176,13 @@
           <label for="CIRdt">Time Increment (dt):</label>
           <input type="number" id="CIRdt" value="0.01" />
 
-          <button onclick="generateCoxIngersollRoss()">Generate</button>
+          <button onclick="clickCoxIngersollRoss()">Generate</button>
         </div>
 
         <div id="BKInputs" class="input-form" style="display: none">
+          <label for="BKinstances">Number of instances:</label>
+          <input type="number" id="BKinstances" value="10" />
+
           <label for="bkNumSteps">Number of Steps:</label>
           <input type="number" id="bkNumSteps" value="100" />
 
@@ -183,10 +204,13 @@
           <label for="BKDt">Time Increment (dt):</label>
           <input type="number" id="BKDt" value="0.01" />
 
-          <button onclick="generateBlackKarasinski()">Generate</button>
+          <button onclick="clickBlackKarasinski()">Generate</button>
         </div>
 
         <div id="HInputs" class="input-form" style="display: none">
+          <label for="Hinstances">Number of instances:</label>
+          <input type="number" id="Hinstances" value="10" />
+
           <label for="hNumSteps">Number of Steps:</label>
           <input type="number" id="hNumSteps" value="100" />
 
@@ -211,14 +235,66 @@
           <label for="HDt">Time Increment (dt):</label>
           <input type="number" id="HDt" value="0.01" />
 
-          <button onclick="generateHeston()">Generate</button>
+          <button onclick="clickHeston()">Generate</button>
+        </div>
+
+        <div id="CInputs" class="input-form" style="display: none">
+          <label for="Cinstances">Number of instances:</label>
+          <input type="number" id="Cinstances" value="10" />
+
+          <label for="cNumSteps">Number of Steps:</label>
+          <input type="number" id="cNumSteps" value="100" />
+
+          <label for="CMu">Mu:</label>
+          <input type="number" id="CMu" value="0.1" />
+
+          <label for="CK">k:</label>
+          <input type="number" id="CK" value="0.3" />
+
+          <label for="CA">a:</label>
+          <input type="number" id="CA" value="0.2" />
+
+          <label for="CB">b:</label>
+          <input type="number" id="CB" value="0.3" />
+
+          <label for="CM">m:</label>
+          <input type="number" id="CM" value="0.2" />
+
+          <label for="CMu">mu:</label>
+          <input type="number" id="CMu" value="0.1" />
+
+          <label for="CV">v:</label>
+          <input type="number" id="CV" value="0.5" />
+
+          <label for="CG">g:</label>
+          <input type="number" id="CG" value="0.2" />
+
+          <label for="CR0">R0 (Initial stock price):</label>
+          <input type="number" id="CR0" value="0.05" />
+
+          <label for="CTheta0">Theta0:</label>
+          <input type="number" id="CTheta0" value="0.1" />
+
+          <label for="CSigma0">Sigma0:</label>
+          <input type="number" id="CSigma0" value="0.05" />
+
+          <label for="CDt">dt:</label>
+          <input type="number" id="CDt" value="0.01" />
+
+          <button onclick="clickChen()">Generate</button>
         </div>
       </div>
+
       <div style="width: 90%">
         <div class="resizable">
           <div style="display: flex; justify-content: center">
             <div id="canvas1" class="canvasWrapper">
               <canvas id="myCanvas"></canvas>
+            </div>
+            <div style="margin-top: 35%; width: 100%; align-items: center">
+              <div id="canvas2" class="canvasWrapper">
+                <canvas id="myCanvas2"></canvas>
+              </div>
             </div>
           </div>
         </div>

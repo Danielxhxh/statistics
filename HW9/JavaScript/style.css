@@ -6,8 +6,8 @@ h1 {
   width: 100%;
   text-align: center;
   font-size: 25px;
+  margin-bottom: 50px;
 }
-
 input {
   width: 90%;
   padding: 5px;
@@ -36,6 +36,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin: 20px 0;
 }
 
 button:hover {
@@ -50,10 +51,14 @@ button:hover {
   border: 1px solid lightgray;
 }
 
-#canvas1 {
-  width: 80%;
+#canvas1,
+#canvas2 {
+  width: 55%;
+  margin: 10px;
   height: auto;
   position: absolute;
+  display: none;
+  background-color: white;
 }
 
 /* Form inputs */
@@ -61,5 +66,9 @@ button:hover {
 .input-form input,
 .input-form button {
   display: block;
-  margin-bottom: 10px; /* Add some spacing between elements for better readability */
+  margin-bottom: 10px;
+}
+
+#container-graph {
+  margin: 20px;
 }
